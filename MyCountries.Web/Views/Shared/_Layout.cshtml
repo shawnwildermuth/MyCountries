@@ -1,0 +1,232 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>@ViewBag.Title - MyCountries.io</title>
+
+  <!-- Description, Keywords and Author -->
+  <meta name="description" content="Your description">
+  <meta name="keywords" content="Your,Keywords">
+  <meta name="author" content="ResponsiveWebInc">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Styles -->
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="~/lib/bootstrap/css/bootstrap.css" />
+  <!-- Animate CSS -->
+  <link href="~/theme/css/animate.min.css" rel="stylesheet">
+  <!--[if IE ]><link rel="stylesheet" href="~/theme/css/settings-ie8.css"><![endif]-->
+  <!-- Portfolio CSS -->
+  <link href="~/theme/css/prettyPhoto.css" rel="stylesheet">
+  <!-- Countdown CSS -->
+  <link href="~/theme/css/jquery.countdown.css" rel="stylesheet">
+  <!-- Font awesome CSS -->
+  <link href="~/theme/css/font-awesome.min.css" rel="stylesheet">
+  <!-- Custom CSS -->
+  <link href="~/theme/css/style.css" rel="stylesheet">
+  <!--[if IE]><link rel="stylesheet" href="~/theme/css/ie-style.css"><![endif]-->
+  <!-- Favicon -->
+  <link rel="shortcut icon" href="#">
+
+  <link rel="stylesheet" href="~/css/site.css" />
+
+  @RenderSection("head", false)
+
+</head>
+<body>
+
+  <!-- Body Wrapper -->
+  <div class="wrapper white">
+
+    <!-- Header Start -->
+    <div class="header">
+      <!-- Header Information -->
+      <div class="header-info">
+        <div class="container">
+          <div class="row">
+            <div class="col-md-4 col-sm-4">
+              <!-- Social Media -->
+              <div class="social">
+                <a href="#" class="facebook"><i class="fa fa-facebook"></i></a>
+                <a href="#" class="google-plus"><i class="fa fa-google-plus"></i></a>
+                <a href="#" class="twitter"><i class="fa fa-twitter"></i></a>
+                <a href="#" class="pinterest"><i class="fa fa-pinterest"></i></a>
+                <a href="#" class="linkedin"><i class="fa fa-linkedin"></i></a>
+              </div>
+            </div>
+            <div class="col-md-4 col-sm-4">
+              <!-- Search Box -->
+              <div class="search">
+                <form>
+                  <div class="input-group">
+                    <input type="text" class="form-control" placeholder="Text to search">
+                    <span class="input-group-btn">
+                      <button class="btn" type="button"><i class="fa fa-search"></i></button>
+                    </span>
+                  </div>
+                </form>
+              </div>
+            </div>
+            <div class="col-md-4 col-sm-4">
+              @await Html.PartialAsync("_LoginPartial")
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Header Navigation -->
+      <div class="header-navigation">
+        <div class="container">
+          <div class="row">
+            <div class="col-md-4">
+              <!-- Logo -->
+              <div class="logo">
+                <!-- Heading -->
+                <h1><a href="@Url.Action("Index", "Home")"><i class="fa fa-map-marker br-red"></i> MyCountries.io</a></h1>
+              </div>
+            </div>
+            <div class="col-md-8">
+              <!-- Bootstrap Navbar -->
+              <nav class="navbar navbar-default" role="navigation">
+                <!-- Brand and toggle get grouped for better mobile display -->
+                <div class="navbar-header">
+                  <button type="button" class="navbar-toggle br-orange" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                  </button>
+                </div>
+                <!-- Collect the nav links, forms, and other content for toggling -->
+                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                  <ul class="nav navbar-nav navbar-right">
+                    @await Html.PartialAsync("_Nav")
+                  </ul>
+                </div><!-- /.navbar-collapse -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Header End -->
+    <!-- Box Wrapper -->
+    <div class="box-wrapper">
+      <div class="container">
+
+
+        @RenderBody()
+
+      </div>
+    </div>
+
+    <!-- Footer Start -->
+
+    <div class="footer">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-4 col-sm-6">
+            <!-- Footer Widget -->
+            <div class="footer-widget">
+              <!-- Logo Icon -->
+              <!-- Heading -->
+              <h2><a href="@Url.Action("Index", "Home")"><i class="fa fa-map-marker logo-icon br-red"></i> MyCountries.io</a></h2>
+              <!-- Paragraph -->
+              <p>Share your travels!</p>
+              <!-- Social Media -->
+              <div class="social">
+                <a href="#" class="facebook"><i class="fa fa-facebook"></i></a>
+                <a href="#" class="google-plus"><i class="fa fa-google-plus"></i></a>
+                <a href="#" class="twitter"><i class="fa fa-twitter"></i></a>
+                <a href="#" class="pinterest"><i class="fa fa-pinterest"></i></a>
+                <a href="#" class="linkedin"><i class="fa fa-linkedin"></i></a>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4 col-sm-6">
+            <!-- Footer Widget -->
+            <div class="footer-widget">
+              <!-- Heading -->
+              <h5><i class="fa fa-plus br-red"></i> Navigation Menu</h5>
+              <div class="row">
+                <div class="col-md-6 col-sm-6 col-xs-6">
+                  <!-- Menu Icons link -->
+                  <ul class="list-unstyled">
+                    <li><a href="#"><i class="fa fa-home br-red"></i> Home</a></li>
+                    <li><a href="#"><i class="fa fa-envelope-o br-green"></i> Contact</a></li>
+                    <li><a href="#"><i class="fa fa-search br-green"></i> About</a></li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="clearfix visible-sm"></div>
+          <div class="col-md-4 col-sm-6">
+            <!-- Footer Widget -->
+            <div class="footer-widget">
+              <!-- Heading -->
+              <h5><i class="fa fa-location-arrow br-lblue"></i> Location</h5>
+              <!-- Google Map -->
+              <div class="map">
+                <!-- Image -->
+                <img src="~/theme/img/map.png" class="img-responsive" alt="" />
+                <!-- Map Marker -->
+                <i class="fa fa-map-marker marker india lblue"></i>
+                <i class="fa fa-map-marker marker usa orange"></i>
+                <i class="fa fa-map-marker marker africa green"></i>
+              </div>
+              <span class="location-name">
+                <i class="fa fa-map-marker br-lblue"></i> India &nbsp;&nbsp;
+                <i class="fa fa-map-marker br-orange"></i> USA &nbsp;&nbsp;
+                <i class="fa fa-map-marker br-green"></i> Africa
+              </span>
+            </div>
+          </div>
+        </div>
+        <!-- Footer Copyright -->
+        <div class="footer-copyright">
+          <p>&copy; Copyright 2015 <a href="http://wilderminds.com">Wilder Minds LLC</a></p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Footer End -->
+
+  </div>
+  <!-- Footer End -->
+  <!-- Scroll to top -->
+  <span class="totop"><a href="#"><i class="fa fa-angle-up"></i></a></span>
+
+
+  <!-- Javascript files -->
+  <script src="~/lib/jquery/js/jquery.js"></script>
+  <script src="~/lib/bootstrap/js/bootstrap.js"></script>
+  <!-- Masonry JS -->
+  <script src="~/theme/js/masonry.pkgd.min.js"></script>
+  <script src="~/theme/js/imagesloaded.pkgd.min.js"></script>
+  <!-- Cycle JS -->
+  <script type="text/javascript" src="~/theme/js/jquery.cycle.all.js"></script>
+  <!-- jQuery flot -->
+  <!--[if lte IE 8]><script language="javascript" type="text/javascript" src="~/theme/js/excanvas.min.js"></script><![endif]-->
+  <script src="~/theme/js/jquery.flot.min.js"></script>
+  <script src="~/theme/js/jquery.flot.resize.min.js"></script>
+  <!-- Count To JS  -->
+  <script src="~/theme/js/jquery.countTo.js"></script>
+  <!-- jQuery way points -->
+  <script src="~/theme/js/waypoints.min.js"></script>
+  <!-- jQuery prettyPhoto & Isotope -->
+  <script src="~/theme/js/jquery.prettyPhoto.js"></script>
+  <script src="~/theme/js/isotope.js"></script>
+  <!-- Jquery for Countdown  -->
+  <script type="text/javascript" src="~/theme/js/jquery.countdown.min.js"></script>
+  <!-- Respond JS for IE8 -->
+  <script src="~/theme/js/respond.min.js"></script>
+  <!-- HTML5 Support for IE -->
+  <script src="~/theme/js/html5shiv.js"></script>
+  <!-- Custom JS -->
+  <script src="~/theme/js/custom.js"></script>
+
+  @RenderSection("scripts", required: false)
+</body>
+</html>

@@ -229,3 +229,7 @@ $RECYCLE.BIN/
 
 # Windows shortcuts
 *.lnk
+
+# ASP.NET 5 Stuff
+bower_components
+**/wwwroot/lib

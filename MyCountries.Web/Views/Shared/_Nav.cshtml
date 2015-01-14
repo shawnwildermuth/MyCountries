@@ -1,0 +1,21 @@
+﻿@helper CreateItem(string name, string url, string icon)
+{
+  var color = "blue";
+  if (Url.Action() == url)
+  {
+    color = "red";
+  }
+  <li>
+    <a href="@url" class="br-@color">
+      <!-- Link Icon -->
+      <i class="fa @icon link-icon"></i>
+      <!-- Link Title -->
+      <span class="link-title">@name</span>
+    </a>
+  </li>
+}
+
+@CreateItem("Home", Url.Action("Index", "Home"), "fa-home")
+@CreateItem("Contact", Url.Action("Contact", "Home"), "fa-envelope-o")
+@CreateItem("About", Url.Action("About", "Home"), "fa-search")
+

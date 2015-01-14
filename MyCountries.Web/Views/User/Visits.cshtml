@@ -1,0 +1,53 @@
+﻿@model IEnumerable<MyCountries.Web.Data.Visit>
+  @using System
+@{
+    // ViewBag.Title = "Home Page";
+}
+
+<div class="row">
+  <div class="well">
+    <p class="text-primary lead">Display the countries you’ve visited in the world...</p>
+    <div id="msgs" class="text-info">And share them with your friends!</div>
+  </div>
+</div>
+
+<div class="row">
+  @foreach (var visit in Model)
+  {
+    <div class="col-lg-3 col-md-4 col-sm-6">
+      <div class="box box-md pull-up-sm animated">
+        <div class="box-content box-gallery padd-zero">
+          <div class="img-details box-hover-black">
+            <!-- Heading -->
+            <h3>@visit.City, @visit.Country</h3>
+            <!-- Paragraph -->
+            <div>@string.Format("{0:D}", visit.VisitDate)</div>
+            @{ string busOrFun;
+              if (visit.ForWork && visit.ForFun)
+              {
+                busOrFun = "For business and pleasure";
+              }
+              else if (visit.ForWork)
+              {
+                busOrFun = "For business";
+              }
+              else if (visit.ForFun)
+              {
+                busOrFun = "For pleasure";
+              }
+              else
+              {
+                busOrFun = "Unknown";
+              }
+            }
+            <div>@(string.Format("{0}{1}.", busOrFun, visit.FirstVisit ? " and was first trip" : ""))</div>
+            <div>@visit.Notes</div>
+            <div>User: @visit.UserName</div>
+          </div>
+          <!-- Image -->
+          <img src='/img/flags/@(visit.Country.Replace(" ", "_")).png' alt="@visit.Country" class="img-responsive box-gallery-img" />
+        </div>
+      </div>
+    </div>
+              }
+</div>

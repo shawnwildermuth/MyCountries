@@ -1,0 +1,19 @@
+/* CSS for Internet Explorer */
+
+
+.inner-page .product .carousel .carousel-control {
+	-ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
+}
+
+.inner-page .faq .panel .panel-heading h5,
+.inner-page .time-line .panel .panel-heading h5{
+	margin: 0px;
+	padding: 15px;
+	padding-bottom: 13px;
+	background: rgba(0,0,0,0.1);
+}
+
+.inner-page .faq .panel .panel-heading a,
+.inner-page .time-line .panel .panel-heading a{
+	color: #fff;
+}

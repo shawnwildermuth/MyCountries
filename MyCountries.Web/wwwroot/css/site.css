@@ -1,0 +1,17 @@
+﻿.header .header-info {
+  margin-bottom: 7px;
+  padding-bottom: 7px;
+  padding-top: 9px;
+
+}
+
+  .header .header-info .nav > li > a {
+    padding-top: 2px;
+    padding-bottom: 5px;
+  }
+
+  .header .header-info .social a i {
+    height: 30px;
+  }
+
+  
