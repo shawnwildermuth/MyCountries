@@ -27,3 +27,5 @@
 /// <reference path="theme/js/waypoints.min.js" />
 /// <reference path="js/myApp.js" />
 /// <reference path="js/myapp-controllers.js" />
+/// <reference path="lib/angular-route/angular-route.js" />
+/// <reference path="js/mycountries-common.js" />

@@ -3,6 +3,7 @@ using Microsoft.AspNet.Diagnostics;
 using Microsoft.AspNet.Diagnostics.Entity;
 using Microsoft.AspNet.Hosting;
 using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Mvc;
 using Microsoft.AspNet.Routing;
 using Microsoft.Data.Entity;
 using Microsoft.Framework.ConfigurationModel;
@@ -11,6 +12,7 @@ using Microsoft.Framework.Logging;
 using Microsoft.Framework.Logging.Console;
 using MyCountries.Web.Data;
 using MyCountries.Web.Models;
+using Newtonsoft.Json.Serialization;
 using System;
 
 namespace MyCountries.Web
@@ -42,7 +44,19 @@ namespace MyCountries.Web
       services.AddDefaultIdentity<MyCountriesContext, ApplicationUser, IdentityRole>(Configuration);
 
       // Add MVC services to the services container.
-      services.AddMvc();
+      services.AddMvc()
+        .Configure<MvcOptions>(options =>
+        {
+          // See Rick Strath's great discussion of formatters: http://www.strathweb.com/2014/11/formatters-asp-net-mvc-6/
+          options.InputFormatters.Clear();
+
+          var jsonOutputFormatter = new JsonOutputFormatter();
+          jsonOutputFormatter.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
+          jsonOutputFormatter.SerializerSettings.DefaultValueHandling = Newtonsoft.Json.DefaultValueHandling.Ignore;
+
+          options.OutputFormatters.RemoveAll(formatter => formatter.Instance.GetType() == typeof(JsonOutputFormatter));
+          options.OutputFormatters.Insert(0, jsonOutputFormatter);
+        }); ;
 
       // Add other services
       services.AddScoped<IMyCountriesRepository, MyCountriesRepository>();
@@ -84,13 +98,12 @@ namespace MyCountries.Web
       app.UseMvc(routes =>
       {
         routes.MapRoute(
-                  name: "default",
-                  template: "{controller}/{action}/{id?}",
-                  defaults: new { controller = "Home", action = "Index" });
+              name: "default",
+              template: "{controller}/{action}/{id?}",
+              defaults: new { controller = "Home", action = "Index" });
+        });
 
-              // Uncomment the following line to add a route for porting Web API 2 controllers.
-              // routes.MapWebApiRoute("DefaultApi", "api/{controller}/{id?}");
-            });
+
 
       // Sample Data
       SampleData.InitializeData(app.ApplicationServices);

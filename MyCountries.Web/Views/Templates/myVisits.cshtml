@@ -1,2 +1,25 @@
-﻿<h1>My Visits</h1>
+﻿
+<h1>My Visits</h1>
+
 <a href="#/newVisit" class="btn btn-primary">New Visit</a>
+{{ vm.visits.count }}
+
+<div class="row">
+  <div class="col-lg-3 col-md-4 col-sm-6" ng-repeat="visit in vm.visits">
+    <div class="box box-md pull-up-sm animated animation">
+      <div class="box-content box-gallery padd-zero">
+        <div class="img-details box-hover-black">
+          <!-- Heading -->
+          <h3>{{ visit.city }}, {{visit.country }}</h3>
+          <!-- Paragraph -->
+          <div>{{  visit.visitDate | date }}</div>
+          <div>{{ visit | visitType }}</div>
+          <div>{{ visit.notes }}</div>
+          <div>User: {{ visit.userName }}</div>
+        </div>
+        <!-- Image -->
+        <img ng-src='{{ "/img/flags/" + visit.country.replace(" ", "_") + ".png" }}' alt="{{ visit.country }}" class="img-responsive box-gallery-img" />
+      </div>
+    </div>
+  </div>
+</div>

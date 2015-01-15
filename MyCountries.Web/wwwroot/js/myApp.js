@@ -3,24 +3,40 @@
 
   "use strict";
 
-  var myApp = angular.module("myApp", ["ngRoute"]);
+  var myApp = angular.module("myApp", ["ngRoute", "myCountries"]);
 
   myApp.config(function ($routeProvider) {
     
     $routeProvider.when("/", {
       controller: "visitsController",
-      controllerAs: "visits",
+      controllerAs: "vm",
       templateUrl: "/Templates/MyVisits"
     });
 
     $routeProvider.when("/newVisit", {
       controller: "newVisitController",
-      controllerAs: "newVisit",
+      controllerAs: "vm",
       templateUrl: "/Templates/NewVisit"
     });
 
     $routeProvider.otherwise({ redirectTo: "/" });;
 
+  });
+
+  myApp.filter("visitType", function () {
+    return function (visit) {
+
+      if (visit.forFun && visit.forWork) {
+        return "For business and pleasure";
+      } else if (visit.forFun) {
+        return "For pleasure";
+      } else if (visit.forWork) {
+        return "For business";
+      } else {
+        return "Unknown visit type";
+      }
+
+    };
   });
 
 })();

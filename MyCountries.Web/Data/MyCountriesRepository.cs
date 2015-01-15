@@ -19,7 +19,7 @@ namespace MyCountries.Web.Data
 
       return await _context.Visits
         .Where(v => v.UserName.ToLowerInvariant() == lowerUserName)
-        .OrderByDescending(v => v.VisitDate)
+        .OrderBy(v => v.VisitDate)
         .ToListAsync();
     }
 

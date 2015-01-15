@@ -1,42 +1,50 @@
 ﻿@model MyCountries.Web.Data.Visit
 <h1>New Visit</h1>
 
-<form id="newVisitForm" novalidate onsubmit="newVisit.save()">
+<form name="newVisitForm" novalidate onsubmit="newVisit.save()">
   <div class="form-group">
     <label for="city">City:</label>
-    <input type="text" name="city" id="city" class="form-control" />
-    <span class="text-danger">*</span>
+    <input type="text" name="city" id="city" class="form-control" ng-model="newVisit.city" required ng-minlength="3" />
+    <span class="text-danger" ng-show="newVisitForm.city.$error.required">*</span>
+    <span class="text-danger" ng-show="newVisitForm.city.$error.minlength">Minimum length three characters</span>
   </div>
 
   <div class="form-group">
     <label for="country">Country:</label>
-    @Html.DropDownList("country", (IEnumerable<SelectListItem>)ViewBag.Countries, new { @class = "form-control" }) 
-    <span class="text-danger">*</span>
+    @Html.DropDownList("country", (IEnumerable<SelectListItem>)ViewBag.Countries, new { @class = "form-control", ng_model = "newVisit.country", required = true })
+    <span class="text-danger" ng-show="newVisitForm.countries.$error.required">*</span>
   </div>
+
   <div class="form-group">
     <label for="visitDate">Visit Date:</label>
-    <input type="text" name="visitDate" id="visitDate" class="form-control" />
-    <span class="text-danger">*</span>
+    <input type="text" name="visitDate" id="visitDate" class="form-control" ng-model="newVisit.visitDate" required ng-pattern="/^((\d{4})-(\d{2})-(\d{2})|(\d{2})\/(\d{2})\/(\d{4}))$/" />
+    <span class="text-danger" ng-show="newVisitForm.visitDate.$error.required">*</span>
+    <span class="text-danger" ng-show="newVisitForm.visitDate.$error.pattern">Must be MM/DD/YYYY.</span>
   </div>
+
   <div class="form-group">
-    <input type="checkbox" id="forWork" name="forWork">
+    <input type="checkbox" id="forWork" name="forWork" ng-model="newVisit.forWork">
     <label for="forWork">For Business?</label>
   </div>
+
   <div class="form-group">
-    <input type="checkbox" id="forFun" name="forFun">
+    <input type="checkbox" id="forFun" name="forFun" ng-model="newVisit.forFun">
     <label for="forFun">For Pleasure?</label>
   </div>
+
   <div class="form-group">
-    <input type="checkbox" id="firstTrip" name="firstTrip">
+    <input type="checkbox" id="firstTrip" name="firstTrip" ng-model="newVisit.firstTrip">
     <label for="firstTrip">For Pleasure?</label>
   </div>
+
   <div class="form-group">
     <label for="notes">Notes:</label>
-    <textarea name="notes" id="notes" class="form-control" rows="4" />
-    <span class="text-danger">*</span>
+    <textarea name="notes" id="notes" class="form-control" rows="4" ng-model="newVisit.notes" ng-maxlength="1024" />
+    <span class="text-danger" ng-show="newVisitForm.notes.$error.maxlength">Cannot be longer than 1024 characters. (<span>{{ newVisitForm.notes.length }}</span>)</span>
   </div>
+
   <div class="form-group">
-    <input type="submit" value="Save" class="btn btn-success" />
+    <input type="submit" value="Save" class="btn btn-success" ng-disabled="newVisitForm.$invalid" />
     <a href="#/" class="btn btn-warning">Cancel</a>
   </div>
 </form>
