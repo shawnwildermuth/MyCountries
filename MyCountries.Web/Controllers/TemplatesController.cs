@@ -9,7 +9,7 @@ namespace MyCountries.Web.Controllers
   {
     public ActionResult NewVisit()
     {
-      ViewBag.Countries = ISO3166.Country.List.Select(c => new SelectListItem() { Text = c.Name, Value = c.TwoLetterCode }).ToList();
+      ViewBag.Countries = ISO3166.Country.List.Select(c => new SelectListItem() { Text = c.Name }).ToList();
       return View();
     }
 

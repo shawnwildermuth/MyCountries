@@ -7,5 +7,6 @@ namespace MyCountries.Web.Data
   {
     Task<IEnumerable<Visit>> GetLatestVisits(int number);
     Task<IEnumerable<Visit>> GetVisitsByUserNameAsync(string username);
+    Task<bool> AddVisitAsync(Visit newVisit);
   }
 }

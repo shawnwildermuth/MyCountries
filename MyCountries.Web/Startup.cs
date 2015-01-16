@@ -47,8 +47,8 @@ namespace MyCountries.Web
       services.AddMvc()
         .Configure<MvcOptions>(options =>
         {
-          // See Rick Strath's great discussion of formatters: http://www.strathweb.com/2014/11/formatters-asp-net-mvc-6/
-          options.InputFormatters.Clear();
+          // See Strathweb's great discussion of formatters: http://www.strathweb.com/2014/11/formatters-asp-net-mvc-6/
+          //options.InputFormatters.Clear();
 
           var jsonOutputFormatter = new JsonOutputFormatter();
           jsonOutputFormatter.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();

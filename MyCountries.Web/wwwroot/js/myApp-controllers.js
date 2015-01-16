@@ -24,12 +24,29 @@
 
   });
 
-  myApp.controller("newVisitController", function () {
+  myApp.controller("newVisitController", function (visitService) {
     var me = this;
+
+    me.newVisit = {};
+    me.busy = false;
+    me.errorMessage = "";
 
     me.save = function () {
 
+      me.errorMessage = "";
+      me.busy = true;
 
+      visitService.add(me.newVisit)
+      .then(function () {
+        me.errorMessage = "Added...";
+        me.newVisit = {};
+      },
+      function (err) {
+        me.errorMessage = "Failed to add new visit";
+      })
+      .finally(function () {
+        me.busy = false;
+      });
 
     };
 

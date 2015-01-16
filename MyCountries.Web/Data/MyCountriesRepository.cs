@@ -30,5 +30,12 @@ namespace MyCountries.Web.Data
         .Take(number)
         .ToListAsync();
     }
+
+    public async Task<bool> AddVisitAsync(Visit newVisit)
+    {
+      await _context.Visits.AddAsync(newVisit);
+
+      return (await _context.SaveChangesAsync() > 0);
+    }
   }
 }
