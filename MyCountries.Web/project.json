@@ -45,6 +45,7 @@
     ],
     "scripts": {
         "postrestore": [ "npm install" ],
-        "prepare": [ "grunt bower:install" ]
+        "postbuild": [ "gulp default"  ],
+        "prepare": [ "gulp bower" ]
     }
 }
