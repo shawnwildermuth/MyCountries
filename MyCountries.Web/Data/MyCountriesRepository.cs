@@ -37,5 +37,12 @@ namespace MyCountries.Web.Data
 
       return (await _context.SaveChangesAsync() > 0);
     }
+
+    public async Task<bool> UpdateVisitAsync(Visit visit)
+    {
+      _context.Visits.Update(visit);
+
+      return (await _context.SaveChangesAsync() > 0);
+    }
   }
 }

@@ -39,9 +39,10 @@ namespace MyCountries.Web
           {
             options.UseSqlServer(Configuration.Get("Data:DefaultConnection:ConnectionString"));
           });
-      
+
       // Add Identity services to the services container.
-      services.AddDefaultIdentity<MyCountriesContext, ApplicationUser, IdentityRole>(Configuration);
+      services.AddIdentity<ApplicationUser, IdentityRole>(Configuration)
+          .AddEntityFrameworkStores<MyCountriesContext>();
 
       // Add MVC services to the services container.
       services.AddMvc()

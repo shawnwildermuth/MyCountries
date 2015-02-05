@@ -12,8 +12,6 @@ gulp.task('default', function () {
 
     return gulp.src('wwwroot/js/*.js')
         .pipe(ngAnnotate())
-        //.pipe(diff())
-        //.pipe(diff.reporter())
         .pipe(concat('app.min.js'))
         .pipe(uglify())
         .pipe(gulp.dest('wwwroot/lib/_app'));

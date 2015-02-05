@@ -20,7 +20,7 @@ namespace MyCountries.Web.Controllers
       _userManager = userManager;
     }
 
-    [HttpGet("{username}")]
+    [HttpGet("{username}", Name = "UserVisits")]
     public async Task<ActionResult> Visits(string username)
     {
       var user = await _userManager.FindByNameAsync(username);

@@ -24,7 +24,7 @@
 
   });
 
-  myApp.controller("newVisitController", function (visitService) {
+  myApp.controller("newVisitController", function (visitService, $window) {
     var me = this;
 
     me.newVisit = {};
@@ -40,6 +40,7 @@
       .then(function () {
         me.errorMessage = "Added...";
         me.newVisit = {};
+        $window.location = "#/";
       },
       function (err) {
         me.errorMessage = "Failed to add new visit";
@@ -52,5 +53,45 @@
 
   });
 
+  myApp.controller("editVisitController", function (visitService, $routeParams, $window) {
+
+    var me = this;
+
+    var visitId = $routeParams.id;
+    me.theVisit = null;
+
+    me.busy = true;
+    me.errorMessage = "";
+
+    // get the visit from the service
+    visitService.getVisitById(visitId)
+      .then(function (visit) {
+        me.theVisit = visit;
+      }, function () {
+        me.errorMessage = "Failed to find the visit.";
+        $window.location = "#/";
+      })
+      .finally(function () {
+        me.busy = false;
+      });
+
+    me.save = function () {
+
+      me.busy = true;
+      me.errorMessage = "";
+
+      visitService.update(me.theVisit)
+        .then(function () {
+          $window.location = "#/";
+        },
+        function () {
+          me.errorMessage = "Failed to update the visit";
+        })
+      .finally(function () {
+        me.busy = false;
+      });
+
+    };
+  });
 
 })();

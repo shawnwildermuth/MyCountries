@@ -16,6 +16,7 @@
           <div>{{ visit | visitType }}</div>
           <div>{{ visit.notes }}</div>
           <div>User: {{ visit.userName }}</div>
+          <div><a href="#/editVisit/{{ visit.id }}" class="btn btn-default">Edit</a></div>
         </div>
         <!-- Image -->
         <img ng-src='{{ "/img/flags/" + visit.country.replace(" ", "_") + ".png" }}' alt="{{ visit.country }}" class="img-responsive box-gallery-img" />

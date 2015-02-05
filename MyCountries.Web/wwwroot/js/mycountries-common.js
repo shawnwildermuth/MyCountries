@@ -30,6 +30,40 @@
 
     };
 
+    var _getVisitById = function (visitId) {
+
+      var deferred = $q.defer();
+
+      // Load if necessary
+      if (!_loaded) {
+        _load()
+          .then(function () {
+            resolveGetVisit(deferred, visitId);
+          },
+          function () {
+            deferred.reject("Failed to load visits");
+          });
+      } else {
+        resolveGetVisit(deferred, visitId);
+      }
+
+      return deferred.promise;
+
+    };
+
+    // localize the resolution of the get visit to not dup code
+    function resolveGetVisit(deferred, visitId) {
+      var found = _.find(_visits, function (item) {
+        return item.id == visitId;
+      });
+
+      if (found) {
+        deferred.resolve(found);
+      } else {
+        deferred.reject();
+      }
+    }
+
     var _load = function () {
 
       var deferred = $q.defer();
@@ -48,10 +82,28 @@
 
     };
 
+    var _update = function (visit) {
+
+      var deferred = $q.defer();
+
+      $http.put(_baseUrl + "/" + visit.id, visit)
+        .then(function (response) {
+          deferred.resolve();
+        },
+        function () {
+          deferred.reject("Failed to update new visit");
+        });
+
+      return deferred.promise;
+
+    };
+
     return {
       visits: _visits,
       load: _load,
-      add: _add
+      add: _add,
+      getVisitById: _getVisitById,
+      update: _update
     };
 
   });

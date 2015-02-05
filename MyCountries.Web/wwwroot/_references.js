@@ -236,3 +236,6 @@
 /// <reference path="lib/jquery-validation/src/localization/methods_fi.js" />
 /// <reference path="lib/jquery-validation/src/localization/methods_nl.js" />
 /// <reference path="lib/jquery-validation/src/localization/methods_pt.js" />
+/// <reference path="lib/_app/app.min.js" />
+/// <reference path="lib/underscore/underscore-min.js" />
+/// <reference path="lib/underscore/underscore.js" />

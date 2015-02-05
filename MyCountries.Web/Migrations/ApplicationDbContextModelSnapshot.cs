@@ -29,7 +29,7 @@ namespace MyCountries.Web.Migrations
           b.Property<string>("ClaimType");
           b.Property<string>("ClaimValue");
           b.Property<int>("Id")
-                      .GenerateValuesOnAdd();
+                      .GenerateValueOnAdd();
           b.Property<string>("RoleId");
           b.Key("Id");
           b.ForRelational().Table("AspNetRoleClaims");
@@ -40,7 +40,7 @@ namespace MyCountries.Web.Migrations
           b.Property<string>("ClaimType");
           b.Property<string>("ClaimValue");
           b.Property<int>("Id")
-                      .GenerateValuesOnAdd();
+                      .GenerateValueOnAdd();
           b.Property<string>("UserId");
           b.Key("Id");
           b.ForRelational().Table("AspNetUserClaims");

@@ -5,12 +5,18 @@
 @section scripts {
   <script src="~/lib/angular/angular.js"></script>
   <script src="~/lib/angular-route/angular-route.js"></script>
+  <script src="~/lib/underscore/underscore-min.js"></script>
 
   <script src="~/js/mycountries-common.js"></script>
   <script src="~/js/myapp.js"></script>
   <script src="~/js/myapp-controllers.js"></script>
 }
 
-<div ng-app="myApp">
-  <div ng-view></div>
+<div class="row">
+  <div ng-app="myApp">
+    <div ng-view></div>
+  </div>
+</div>
+<div class="row">
+  <h1>Share Your Visits with your friends: <a href='@Url.RouteUrl("UserVisits", new { username = this.User.Identity.Name }, this.Context.Request.Scheme)'>@Url.RouteUrl("UserVisits", new { username = this.User.Identity.Name }, this.Context.Request.Scheme)</a></h1>
 </div>

@@ -19,6 +19,12 @@
       templateUrl: "/Templates/NewVisit"
     });
 
+    $routeProvider.when("/editVisit/:id", {
+      controller: "editVisitController",
+      controllerAs: "vm",
+      templateUrl: "/Templates/editVisit"
+    });
+
     $routeProvider.otherwise({ redirectTo: "/" });;
 
   });

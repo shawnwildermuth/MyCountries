@@ -1,0 +1,53 @@
+﻿@model MyCountries.Web.Data.Visit
+<h1>Edit Visit</h1>
+
+<div ng-show="vm.busy" class="text-primary">One Moment Please....</div>
+<form name="editVisitForm" novalidate ng-submit="vm.save()" ng-hide="vm.busy">
+  <div class="form-group">
+    <label for="city">City:</label>
+    <input type="text" name="city" id="city" class="form-control" ng-model="vm.theVisit.city" required ng-minlength="3" />
+    <span class="text-danger" ng-show="editVisitForm.city.$error.required">*</span>
+    <span class="text-danger" ng-show="editVisitForm.city.$error.minlength">Minimum length three characters</span>
+  </div>
+
+  <div class="form-group">
+    <label for="country">Country:</label>
+    @Html.DropDownList("country", (IEnumerable<SelectListItem>)ViewBag.Countries, new { @class = "form-control", ng_model = "vm.theVisit.country", required = true })
+    <span class="text-danger" ng-show="editVisitForm.countries.$error.required">*</span>
+  </div>
+
+  <div class="form-group">
+    <label for="visitDate">Visit Date:</label>
+    <input type="text" name="visitDate" id="visitDate" class="form-control" ng-model="vm.theVisit.visitDate" required ng-pattern="/^((\d{4})-(\d{2})-(\d{2})|(\d{2})\/(\d{2})\/(\d{4}))$/" />
+    <span class="text-danger" ng-show="editVisitForm.visitDate.$error.required">*</span>
+    <span class="text-danger" ng-show="editVisitForm.visitDate.$error.pattern">Must be MM/DD/YYYY.</span>
+  </div>
+
+  <div class="form-group">
+    <input type="checkbox" id="forWork" name="forWork" ng-model="vm.theVisit.forWork">
+    <label for="forWork">For Business?</label>
+  </div>
+
+  <div class="form-group">
+    <input type="checkbox" id="forFun" name="forFun" ng-model="vm.theVisit.forFun">
+    <label for="forFun">For Pleasure?</label>
+  </div>
+
+  <div class="form-group">
+    <input type="checkbox" id="firstTrip" name="firstTrip" ng-model="vm.theVisit.firstTrip">
+    <label for="firstTrip">First Trip?</label>
+  </div>
+
+  <div class="form-group">
+    <label for="notes">Notes:</label>
+    <textarea name="notes" id="notes" class="form-control" rows="4" ng-model="vm.theVisit.notes" ng-maxlength="1024" />
+    <span class="text-danger" ng-show="editVisitForm.notes.$error.maxlength">Cannot be longer than 1024 characters. (<span>{{ editVisitForm.notes.length }}</span>)</span>
+  </div>
+
+  <div class="form-group">
+    <input type="submit" value="Save" class="btn btn-success" ng-disabled="editVisitForm.$invalid" />
+    <a href="#/" class="btn btn-warning">Cancel</a>
+  </div>
+  <div ng-show="vm.errorMessage.length > 0" class="text-warning">{{ vm.errorMessage }}</div>
+</form>
+

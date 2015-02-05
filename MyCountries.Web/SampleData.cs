@@ -17,20 +17,20 @@ namespace MyCountries.Web
     {
       using (var ctx = serviceProvider.GetService<MyCountriesContext>())
       {
-        var sqlServerDataStore = ctx.Configuration.DataStore as SqlServerDataStore;
-        if (sqlServerDataStore != null)
-        {
+        //var sqlServerDataStore = ctx.Database.Configuration.DataStore as SqlServerDataStore;
+        //if (sqlServerDataStore != null)
+        //{
           if (ctx.Database.EnsureCreated())
           {
             CreateUsers(serviceProvider).Wait();
             CreateVisits(serviceProvider);
           }
-        }
-        else
-        {
-          CreateUsers(serviceProvider).Wait();
-          CreateVisits(serviceProvider);
-        }
+        //}
+        //else
+        //{
+        //  CreateUsers(serviceProvider).Wait();
+        //  CreateVisits(serviceProvider);
+        //}
 
       }
     }

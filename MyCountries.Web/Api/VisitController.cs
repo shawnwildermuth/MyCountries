@@ -39,12 +39,33 @@ namespace MyCountries.Web.Api
         // TODO Fix for full path, Request doesn't include full request URI for some reason
         var location = string.Concat("/api/visits/", newVisit.Id);
         Response.Headers["location"] = location.ToString();
-
+        
         return Json(newVisit);
       }
 
       return new HttpStatusCodeResult((int)HttpStatusCode.BadRequest);
     }
+
+    [HttpPut("{id}")]
+    public async Task<ActionResult> Put(int id, [FromBody] Visit visit)
+    {
+      var username = User.Identity.GetUserName();
+
+      // Valid User Updating
+      if (visit.UserName == username)
+      {
+
+      }
+
+      if (await _repository.UpdateVisitAsync(visit))
+      {
+        Response.StatusCode = (int)HttpStatusCode.OK;
+        return Json(visit);
+      }
+
+      return new HttpStatusCodeResult((int)HttpStatusCode.BadRequest);
+    }
+
 
     [AllowAnonymous]
     [HttpGet("latest")]
