@@ -44,5 +44,23 @@ namespace MyCountries.Web.Data
 
       return (await _context.SaveChangesAsync() > 0);
     }
+
+    public async Task<Visit> GetVisitByIdAsync(int id)
+    {
+      return await _context.Visits
+        .Where(v => v.Id == id)
+        .FirstOrDefaultAsync();
+    }
+
+    public async Task<bool> DeleteVisitAsync(int id)
+    {
+      var visit = await GetVisitByIdAsync(id);
+
+      if (visit == null) return false;
+
+      _context.Visits.Remove(visit);
+
+      return (await _context.SaveChangesAsync() > 0);
+    }
   }
 }

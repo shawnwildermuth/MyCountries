@@ -35,11 +35,11 @@ namespace MyCountries.Web.Api
 
       if (await _repository.AddVisitAsync(newVisit))
       {
-        Response.StatusCode = (int) HttpStatusCode.Created;
+        Response.StatusCode = (int)HttpStatusCode.Created;
         // TODO Fix for full path, Request doesn't include full request URI for some reason
         var location = string.Concat("/api/visits/", newVisit.Id);
         Response.Headers["location"] = location.ToString();
-        
+
         return Json(newVisit);
       }
 
@@ -49,18 +49,40 @@ namespace MyCountries.Web.Api
     [HttpPut("{id}")]
     public async Task<ActionResult> Put(int id, [FromBody] Visit visit)
     {
-      var username = User.Identity.GetUserName();
+      var currentUserName = User.Identity.GetUserName();
 
       // Valid User Updating
-      if (visit.UserName == username)
+      if (visit.UserName != currentUserName)
       {
-
+        return new HttpStatusCodeResult((int)HttpStatusCode.Unauthorized);
       }
 
       if (await _repository.UpdateVisitAsync(visit))
       {
         Response.StatusCode = (int)HttpStatusCode.OK;
         return Json(visit);
+      }
+
+      return new HttpStatusCodeResult((int)HttpStatusCode.BadRequest);
+    }
+
+    [HttpDelete("{id}")]
+    public async Task<ActionResult> Delete(int id)
+    {
+      var currentUserName = User.Identity.GetUserName();
+
+      var visit = await _repository.GetVisitByIdAsync(id);
+
+      // Valid User Updating
+      if (visit.UserName != currentUserName)
+      {
+        return new HttpStatusCodeResult((int)HttpStatusCode.Unauthorized);
+      }
+
+      if (await _repository.DeleteVisitAsync(id))
+      {
+        Response.StatusCode = (int)HttpStatusCode.OK;
+        return Json(new { success = true });
       }
 
       return new HttpStatusCodeResult((int)HttpStatusCode.BadRequest);

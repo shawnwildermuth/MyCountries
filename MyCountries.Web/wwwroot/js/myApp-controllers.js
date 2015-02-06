@@ -22,6 +22,21 @@
         me.busy = false;
       });
 
+    me.deleteVisit = function (id) {
+      // HACK to not use a Bootstrap Dialog, will fix later
+      if (confirm("Are you sure you want to delete this visit?")) {
+        me.busy = true;
+        me.errorMessage = "";
+        visitService.deleteVisit(id)
+          .then(function () {
+            // NOOP
+          }, function () {
+            me.errorMessage = "Failed to delete the visit";
+          })
+          .finally(function () { me.busy = false;});
+      }
+    };
+
   });
 
   myApp.controller("newVisitController", function (visitService, $window) {
@@ -67,6 +82,8 @@
     visitService.getVisitById(visitId)
       .then(function (visit) {
         me.theVisit = visit;
+        me.theVisit.visitDate = moment.utc(me.theVisit.visitDate).format("MM/DD/YYYY");
+
       }, function () {
         me.errorMessage = "Failed to find the visit.";
         $window.location = "#/";

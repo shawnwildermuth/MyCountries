@@ -98,12 +98,42 @@
 
     };
 
+    var _deleteVisit = function (visitOrVisitId) {
+
+      var deferred = $q.defer();
+
+      if (Number.isInteger(visitOrVisitId)) {
+        _getVisitById(visitOrVisitId).
+         then(function (found) {
+           deleteActualVisit(found, deferred);
+         }, function () {
+           deferred.reject("Failed to find the visit");
+         })
+      } else {
+        deleteActualVisit(visitOrVisitId, deferred);
+      }
+
+      return deferred.promise;
+    };
+
+    function deleteActualVisit(visit, deferred) {
+      $http.delete(_baseUrl + "/" + visit.id)
+        .then(function (success) {
+          var index = _.indexOf(visit);
+          _visits.splice(index, 1);
+          deferred.resolve();
+        }, function () {
+          deferred.reject();
+        });
+    }
+
     return {
       visits: _visits,
       load: _load,
       add: _add,
       getVisitById: _getVisitById,
-      update: _update
+      update: _update,
+      deleteVisit: _deleteVisit
     };
 
   });

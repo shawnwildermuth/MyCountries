@@ -11,12 +11,12 @@
         <div class="img-details box-hover-black">
           <!-- Heading -->
           <h3>{{ visit.city }}, {{visit.country }}</h3>
+          <div class="pull-right"><a href="#/editVisit/{{ visit.id }}" class="btn btn-info btn-sm">Edit</a> <button class="btn btn-danger btn-sm" ng-click="vm.deleteVisit(visit.id)">Delete</button></div>
           <!-- Paragraph -->
           <div>{{  visit.visitDate | date }}</div>
           <div>{{ visit | visitType }}</div>
           <div>{{ visit.notes }}</div>
           <div>User: {{ visit.userName }}</div>
-          <div><a href="#/editVisit/{{ visit.id }}" class="btn btn-default">Edit</a></div>
         </div>
         <!-- Image -->
         <img ng-src='{{ "/img/flags/" + visit.country.replace(" ", "_") + ".png" }}' alt="{{ visit.country }}" class="img-responsive box-gallery-img" />
