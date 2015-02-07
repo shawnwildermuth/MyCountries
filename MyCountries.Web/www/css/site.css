@@ -1,0 +1,38 @@
+﻿.header .header-info {
+  margin-bottom: 7px;
+  padding-bottom: 7px;
+  padding-top: 9px;
+}
+
+  .header .header-info .nav > li > a {
+    padding-top: 2px;
+    padding-bottom: 5px;
+  }
+
+  .header .header-info .social a i {
+    height: 30px;
+  }
+
+.br-purple a,
+.br-purple a:hover {
+  color: #ffd800;
+}
+
+.br-purple a:hover {
+  text-decoration: underline;
+}
+
+.br-purple a.btn-success ,
+.br-purple a.btn-success:hover 
+{
+  color: #fff;
+  text-decoration: none;
+}
+
+.jumbotron .lead {
+  font-size: 28px;
+}
+
+.social a.custom i{
+	background:#149600;
+}

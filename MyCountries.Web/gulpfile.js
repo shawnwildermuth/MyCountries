@@ -10,15 +10,15 @@ var bower = require("gulp-bower");
  
 gulp.task('default', function () {
 
-    return gulp.src('wwwroot/js/*.js')
+    return gulp.src('www/js/*.js')
         .pipe(ngAnnotate())
         .pipe(concat('app.min.js'))
         .pipe(uglify())
-        .pipe(gulp.dest('wwwroot/lib/_app'));
+        .pipe(gulp.dest('www/lib/_app'));
 
 });
 
 gulp.task("bower", function () {
   return bower()
-    .pipe(gulp.dest("wwwroot/lib/"));
+    .pipe(gulp.dest("www/lib/"));
 });

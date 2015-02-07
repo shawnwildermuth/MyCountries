@@ -6,11 +6,8 @@ namespace MyCountries.Web.Services
 {
   public class ConsoleEmailer : IEmailer
   {
-    // REPLACE WITH ILogger
-    private ILogger _logger;
     public ConsoleEmailer()
     {
-      //_logger = logger;
     }
 
     public void SendMail(string from, string to, string subject, string body)

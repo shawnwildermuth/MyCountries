@@ -17,15 +17,14 @@ namespace MyCountries.Web.Controllers
 
     public IActionResult Index()
     {
-
-      _emailer.SendMail("shawn@wildermuth.com", "shawn@wilderminds.com", "Testing", "Foo bar");
+      ViewBag.Message = "An example of ASP.NET 5";
 
       return View();
     }
 
     public IActionResult About()
     {
-      ViewBag.Message = "Your application description page.";
+      ViewBag.Message = "An example of ASP.NET 5";
 
       return View();
     }
