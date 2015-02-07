@@ -14,6 +14,7 @@ using MyCountries.Web.Data;
 using MyCountries.Web.Models;
 using Newtonsoft.Json.Serialization;
 using System;
+using MyCountries.Web.Services;
 
 namespace MyCountries.Web
 {
@@ -49,8 +50,8 @@ namespace MyCountries.Web
         .Configure<MvcOptions>(options =>
         {
           // See Strathweb's great discussion of formatters: http://www.strathweb.com/2014/11/formatters-asp-net-mvc-6/
-          //options.InputFormatters.Clear();
 
+          // Support Camelcasing in MVC API Controllers
           var jsonOutputFormatter = new JsonOutputFormatter();
           jsonOutputFormatter.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
           jsonOutputFormatter.SerializerSettings.DefaultValueHandling = Newtonsoft.Json.DefaultValueHandling.Ignore;
@@ -61,11 +62,11 @@ namespace MyCountries.Web
 
       // Add other services
       services.AddScoped<IMyCountriesRepository, MyCountriesRepository>();
-
-      // Uncomment the following line to add Web API servcies which makes it easier to port Web API 2 controllers.
-      // You need to add Microsoft.AspNet.Mvc.WebApiCompatShim package to project.json
-      // services.AddWebApiConventions();
-
+#if DEBUG
+      services.AddScoped<IEmailer, ConsoleEmailer>();
+#else
+      services.AddScoped<IEmailer, Emailer>();
+#endif
     }
 
     // Configure is called after ConfigureServices is called.
@@ -104,9 +105,7 @@ namespace MyCountries.Web
               defaults: new { controller = "Home", action = "Index" });
         });
 
-
-
-      // Sample Data
+      // Add Sample Data
       SampleData.InitializeData(app.ApplicationServices);
 
     }

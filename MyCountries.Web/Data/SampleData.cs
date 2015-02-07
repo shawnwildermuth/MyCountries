@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 using System.Security.Claims;
 using System.Linq;
 
-namespace MyCountries.Web
+namespace MyCountries.Web.Data
 {
   public class SampleData
   {
@@ -17,21 +17,11 @@ namespace MyCountries.Web
     {
       using (var ctx = serviceProvider.GetService<MyCountriesContext>())
       {
-        //var sqlServerDataStore = ctx.Database.Configuration.DataStore as SqlServerDataStore;
-        //if (sqlServerDataStore != null)
-        //{
-          if (ctx.Database.EnsureCreated())
-          {
-            CreateUsers(serviceProvider).Wait();
-            CreateVisits(serviceProvider);
-          }
-        //}
-        //else
-        //{
-        //  CreateUsers(serviceProvider).Wait();
-        //  CreateVisits(serviceProvider);
-        //}
-
+        if (ctx.Database.EnsureCreated())
+        {
+          CreateUsers(serviceProvider).Wait();
+          CreateVisits(serviceProvider);
+        }
       }
     }
 
