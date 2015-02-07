@@ -27,9 +27,8 @@
     "ef": "EntityFramework.Commands"
   },
   "frameworks": {
-    "aspnet50": { }
-    // Temporarily removing core until I understand the need
-    //,"aspnetcore50": { }
+    "aspnet50": { },
+    "aspnetcore50": { }
   },
   "exclude": [
     "www",
