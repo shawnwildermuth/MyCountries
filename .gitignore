@@ -232,4 +232,4 @@ $RECYCLE.BIN/
 
 # ASP.NET 5 Stuff
 bower_components
-**/www/lib
+**/wwwroot/lib
