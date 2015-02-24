@@ -1,11 +1,10 @@
 ﻿using System;
 using Microsoft.Data.Entity;
 using Microsoft.Data.Entity.Metadata;
-using Microsoft.Data.Entity.Migrations.Infrastructure;
-using MyCountries.Web.Models;
+using Microsoft.Data.Entity.Relational.Migrations.Infrastructure;
 using MyCountries.Web.Data;
 
-namespace MyCountries.Web.Migrations
+namespace WebApplication3.Migrations
 {
   [ContextType(typeof(MyCountriesContext))]
   public class ApplicationDbContextModelSnapshot : ModelSnapshot
@@ -29,7 +28,7 @@ namespace MyCountries.Web.Migrations
           b.Property<string>("ClaimType");
           b.Property<string>("ClaimValue");
           b.Property<int>("Id")
-                      .GenerateValueOnAdd();
+              .GenerateValueOnAdd();
           b.Property<string>("RoleId");
           b.Key("Id");
           b.ForRelational().Table("AspNetRoleClaims");
@@ -40,7 +39,7 @@ namespace MyCountries.Web.Migrations
           b.Property<string>("ClaimType");
           b.Property<string>("ClaimValue");
           b.Property<int>("Id")
-                      .GenerateValueOnAdd();
+              .GenerateValueOnAdd();
           b.Property<string>("UserId");
           b.Key("Id");
           b.ForRelational().Table("AspNetUserClaims");
@@ -64,14 +63,16 @@ namespace MyCountries.Web.Migrations
           b.ForRelational().Table("AspNetUserRoles");
         });
 
-        builder.Entity("TestvNext.Models.ApplicationUser", b =>
+        builder.Entity("WebApplication3.Models.ApplicationUser", b =>
         {
           b.Property<int>("AccessFailedCount");
+          b.Property<string>("ConcurrencyStamp");
           b.Property<string>("Email");
           b.Property<bool>("EmailConfirmed");
           b.Property<string>("Id");
           b.Property<bool>("LockoutEnabled");
-          b.Property<DateTimeOffset>("LockoutEnd");
+          b.Property<DateTimeOffset?>("LockoutEnd");
+          b.Property<string>("NormalizedEmail-");
           b.Property<string>("NormalizedUserName");
           b.Property<string>("PasswordHash");
           b.Property<string>("PhoneNumber");
@@ -90,12 +91,12 @@ namespace MyCountries.Web.Migrations
 
         builder.Entity("Microsoft.AspNet.Identity.IdentityUserClaim`1[[System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]", b =>
         {
-          b.ForeignKey("TestvNext.Models.ApplicationUser", "UserId");
+          b.ForeignKey("MyCountries.Web.Models.ApplicationUser", "UserId");
         });
 
         builder.Entity("Microsoft.AspNet.Identity.IdentityUserLogin`1[[System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]", b =>
         {
-          b.ForeignKey("TestvNext.Models.ApplicationUser", "UserId");
+          b.ForeignKey("MyCountries.Web.Models.ApplicationUser", "UserId");
         });
 
         return builder.Model;

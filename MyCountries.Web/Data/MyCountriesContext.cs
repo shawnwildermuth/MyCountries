@@ -7,7 +7,6 @@ namespace MyCountries.Web.Data
 {
   public class MyCountriesContext : IdentityDbContext<ApplicationUser>
   {
-
     public MyCountriesContext()
     {
     }

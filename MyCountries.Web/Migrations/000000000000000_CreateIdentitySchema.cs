@@ -1,13 +1,12 @@
 ﻿using System;
 using Microsoft.Data.Entity;
 using Microsoft.Data.Entity.Metadata;
-using Microsoft.Data.Entity.Migrations;
-using Microsoft.Data.Entity.Migrations.Builders;
-using Microsoft.Data.Entity.Migrations.Infrastructure;
-using MyCountries.Web.Models;
+using Microsoft.Data.Entity.Relational.Migrations;
+using Microsoft.Data.Entity.Relational.Migrations.Builders;
+using Microsoft.Data.Entity.Relational.Migrations.Infrastructure;
 using MyCountries.Web.Data;
 
-namespace MyCountries.Web.Migrations
+namespace WebApplication3.Migrations
 {
   public partial class CreateIdentitySchema : Migration
   {
@@ -27,7 +26,7 @@ namespace MyCountries.Web.Migrations
             Id = c.Int(nullable: false, identity: true),
             ClaimType = c.String(),
             ClaimValue = c.String(),
-            RoleId = c.String(dataType: "nvarchar(128)")
+            RoleId = c.String()
           })
           .PrimaryKey("PK_AspNetRoleClaims", t => t.Id);
 
@@ -37,7 +36,7 @@ namespace MyCountries.Web.Migrations
             Id = c.Int(nullable: false, identity: true),
             ClaimType = c.String(),
             ClaimValue = c.String(),
-            UserId = c.String(dataType: "nvarchar(128)")
+            UserId = c.String()
           })
           .PrimaryKey("PK_AspNetUserClaims", t => t.Id);
 
@@ -47,7 +46,7 @@ namespace MyCountries.Web.Migrations
             LoginProvider = c.String(),
             ProviderKey = c.String(),
             ProviderDisplayName = c.String(),
-            UserId = c.String(dataType: "nvarchar(128)")
+            UserId = c.String()
           })
           .PrimaryKey("PK_AspNetUserLogins", t => new { t.LoginProvider, t.ProviderKey });
 
@@ -64,10 +63,12 @@ namespace MyCountries.Web.Migrations
           {
             Id = c.String(),
             AccessFailedCount = c.Int(nullable: false),
+            ConcurrencyStamp = c.String(),
             Email = c.String(),
             EmailConfirmed = c.Boolean(nullable: false),
             LockoutEnabled = c.Boolean(nullable: false),
-            LockoutEnd = c.DateTimeOffset(nullable: false),
+            LockoutEnd = c.DateTimeOffset(),
+            NormalizedEmail = c.String(),
             NormalizedUserName = c.String(),
             PasswordHash = c.String(),
             PhoneNumber = c.String(),
@@ -78,11 +79,28 @@ namespace MyCountries.Web.Migrations
           })
           .PrimaryKey("PK_AspNetUsers", t => t.Id);
 
-      migrationBuilder.AddForeignKey("AspNetRoleClaims", "FK_AspNetRoleClaims_AspNetRoles_RoleId", new[] { "RoleId" }, "AspNetRoles", new[] { "Id" }, cascadeDelete: false);
+      migrationBuilder.AddForeignKey(
+          "AspNetRoleClaims",
+          "FK_AspNetRoleClaims_AspNetRoles_RoleId",
+           new[] { "RoleId" },
+           "AspNetRoles",
+           new[] { "Id" },
+           cascadeDelete: false);
 
-      migrationBuilder.AddForeignKey("AspNetUserClaims", "FK_AspNetUserClaims_AspNetUsers_UserId", new[] { "UserId" }, "AspNetUsers", new[] { "Id" }, cascadeDelete: false);
+      migrationBuilder.AddForeignKey(
+          "AspNetUserClaims",
+          "FK_AspNetUserClaims_AspNetUsers_UserId",
+           new[] { "UserId" }, "AspNetUsers",
+           new[] { "Id" },
+           cascadeDelete: false);
 
-      migrationBuilder.AddForeignKey("AspNetUserLogins", "FK_AspNetUserLogins_AspNetUsers_UserId", new[] { "UserId" }, "AspNetUsers", new[] { "Id" }, cascadeDelete: false);
+      migrationBuilder.AddForeignKey(
+          "AspNetUserLogins",
+          "FK_AspNetUserLogins_AspNetUsers_UserId",
+           new[] { "UserId" },
+           "AspNetUsers",
+           new[] { "Id" },
+           cascadeDelete: false);
     }
 
     public override void Down(MigrationBuilder migrationBuilder)
@@ -122,7 +140,7 @@ namespace MyCountries.Web.Migrations
     {
       get
       {
-        return "7.0.0-beta1";
+        return "7.0.0-beta2";
       }
     }
 
@@ -145,7 +163,7 @@ namespace MyCountries.Web.Migrations
           b.Property<string>("ClaimType");
           b.Property<string>("ClaimValue");
           b.Property<int>("Id")
-                      .GenerateValueOnAdd();
+              .GenerateValueOnAdd();
           b.Property<string>("RoleId");
           b.Key("Id");
           b.ForRelational().Table("AspNetRoleClaims");
@@ -156,7 +174,7 @@ namespace MyCountries.Web.Migrations
           b.Property<string>("ClaimType");
           b.Property<string>("ClaimValue");
           b.Property<int>("Id")
-                      .GenerateValueOnAdd();
+              .GenerateValueOnAdd();
           b.Property<string>("UserId");
           b.Key("Id");
           b.ForRelational().Table("AspNetUserClaims");
@@ -180,14 +198,16 @@ namespace MyCountries.Web.Migrations
           b.ForRelational().Table("AspNetUserRoles");
         });
 
-        builder.Entity("TestvNext.Models.ApplicationUser", b =>
+        builder.Entity("WebApplication3.Models.ApplicationUser", b =>
         {
           b.Property<int>("AccessFailedCount");
+          b.Property<string>("ConcurrencyStamp");
           b.Property<string>("Email");
           b.Property<bool>("EmailConfirmed");
           b.Property<string>("Id");
           b.Property<bool>("LockoutEnabled");
-          b.Property<DateTimeOffset>("LockoutEnd");
+          b.Property<DateTimeOffset?>("LockoutEnd");
+          b.Property<string>("NormalizedEmail");
           b.Property<string>("NormalizedUserName");
           b.Property<string>("PasswordHash");
           b.Property<string>("PhoneNumber");
@@ -206,12 +226,12 @@ namespace MyCountries.Web.Migrations
 
         builder.Entity("Microsoft.AspNet.Identity.IdentityUserClaim`1[[System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]", b =>
         {
-          b.ForeignKey("TestvNext.Models.ApplicationUser", "UserId");
+          b.ForeignKey("WebApplication3.Models.ApplicationUser", "UserId");
         });
 
         builder.Entity("Microsoft.AspNet.Identity.IdentityUserLogin`1[[System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]", b =>
         {
-          b.ForeignKey("TestvNext.Models.ApplicationUser", "UserId");
+          b.ForeignKey("WebApplication3.Models.ApplicationUser", "UserId");
         });
 
         return builder.Model;

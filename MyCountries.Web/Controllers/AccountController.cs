@@ -40,12 +40,12 @@ namespace MyCountries.Web.Controllers
       if (ModelState.IsValid)
       {
         var signInStatus = await SignInManager.PasswordSignInAsync(model.UserName, model.Password, model.RememberMe, shouldLockout: false);
-        switch (signInStatus)
+        if (signInStatus.Succeeded)
         {
-          case SignInStatus.Success:
-            return RedirectToLocal(returnUrl);
-          case SignInStatus.Failure:
-          default:
+          return RedirectToLocal(returnUrl);
+        }
+        else
+        { 
             ModelState.AddModelError("", "Invalid username or password.");
             return View(model);
         }
@@ -144,7 +144,7 @@ namespace MyCountries.Web.Controllers
     {
       foreach (var error in result.Errors)
       {
-        ModelState.AddModelError("", error);
+        ModelState.AddModelError("", error.Description);
       }
     }
 
