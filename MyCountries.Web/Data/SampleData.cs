@@ -13,105 +13,95 @@ namespace MyCountries.Web.Data
 {
   public class SampleData
   {
-    public static void InitializeData(IServiceProvider serviceProvider)
+    private MyCountriesContext _ctx;
+    private UserManager<ApplicationUser> _userManager;
+
+    public SampleData(MyCountriesContext ctx, UserManager<ApplicationUser> userManager)
     {
-      using (var ctx = serviceProvider.GetService<MyCountriesContext>())
+      _ctx = ctx;
+      _userManager = userManager;
+    }
+
+    public void InitializeData()
+    {
+      if (_ctx.Database.EnsureCreated())
       {
-        if (ctx.Database.EnsureCreated())
-        {
-          CreateUsers(serviceProvider).Wait();
-          CreateVisits(serviceProvider);
-        }
+        CreateUsers().Wait();
+        CreateVisits();
       }
     }
 
-    private static async Task CreateUsers(IServiceProvider serviceProvider)
+    private async Task CreateUsers()
     {
-      var configuration = new Configuration()
-                  .AddJsonFile("config.json")
-                  .AddEnvironmentVariables();
-
-      var userManager = serviceProvider.GetService<UserManager<ApplicationUser>>();
-
-      var user = await userManager.FindByEmailAsync("shawnwildermuth");
+      var user = await _userManager.FindByEmailAsync("shawnwildermuth");
       if (user == null)
       {
         user = new ApplicationUser { UserName = "shawnwildermuth", Email = "shawn@wildermuth.com" };
-        await userManager.CreateAsync(user, "P@ssw0rd!");
+        await _userManager.CreateAsync(user, "P@ssw0rd!");
 
-        await userManager.AddClaimAsync(user, new Claim("ManageStore", "Allowed"));
+        await _userManager.AddClaimAsync(user, new Claim("ManageStore", "Allowed"));
       }
 
     }
 
-    private static void CreateVisits(IServiceProvider serviceProvider)
+    private void CreateVisits()
     {
-      var configuration = new Configuration()
-                  .AddJsonFile("config.json")
-                  .AddEnvironmentVariables();
-
-      using (var ctx = serviceProvider.GetService<MyCountriesContext>())
+      if (_ctx.Visits.Count() == 0)
       {
-
-        if (ctx.Visits.Count() == 0)
+        _ctx.Visits.Add(new Visit()
         {
-          ctx.Visits.Add(new Visit()
-          {
-            Id = 0,
-            UserName = "shawnwildermuth",
-            Country = "France",
-            City = "Paris",
-            VisitDate = new DateTime(2014, 6, 4),
-            Duration = 31,
-            Notes = "Start of our round-the-world trip",
-            ForWork = false,
-            ForFun = true
-          });
+          Id = 0,
+          UserName = "shawnwildermuth",
+          Country = "France",
+          City = "Paris",
+          VisitDate = new DateTime(2014, 6, 4),
+          Duration = 31,
+          Notes = "Start of our round-the-world trip",
+          ForWork = false,
+          ForFun = true
+        });
 
-          ctx.Visits.Add(new Visit()
-          {
-            Id = 0,
-            UserName = "shawnwildermuth",
-            Country = "United Kingdom",
-            City = "London",
-            VisitDate = new DateTime(2014, 7, 2),
-            Duration = 28,
-            Notes = "Our visit to the UK",
-            ForWork = true,
-            ForFun = true
-          });
+        _ctx.Visits.Add(new Visit()
+        {
+          Id = 0,
+          UserName = "shawnwildermuth",
+          Country = "United Kingdom",
+          City = "London",
+          VisitDate = new DateTime(2014, 7, 2),
+          Duration = 28,
+          Notes = "Our visit to the UK",
+          ForWork = true,
+          ForFun = true
+        });
 
-          ctx.Visits.Add(new Visit()
-          {
-            Id = 0,
-            UserName = "shawnwildermuth",
-            Country = "France",
-            City = "Paris",
-            VisitDate = new DateTime(2014, 6, 4),
-            Duration = 31,
-            Notes = "Start of our round-the-world trip",
-            ForWork = false,
-            ForFun = true
-          });
+        _ctx.Visits.Add(new Visit()
+        {
+          Id = 0,
+          UserName = "shawnwildermuth",
+          Country = "France",
+          City = "Paris",
+          VisitDate = new DateTime(2014, 6, 4),
+          Duration = 31,
+          Notes = "Start of our round-the-world trip",
+          ForWork = false,
+          ForFun = true
+        });
 
-          ctx.Visits.Add(new Visit()
-          {
-            Id = 0,
-            UserName = "shawnwildermuth",
-            Country = "France",
-            City = "Paris",
-            VisitDate = new DateTime(2014, 6, 4),
-            Duration = 31,
-            Notes = "Start of our round-the-world trip",
-            ForWork = false,
-            ForFun = true
-          });
+        _ctx.Visits.Add(new Visit()
+        {
+          Id = 0,
+          UserName = "shawnwildermuth",
+          Country = "France",
+          City = "Paris",
+          VisitDate = new DateTime(2014, 6, 4),
+          Duration = 31,
+          Notes = "Start of our round-the-world trip",
+          ForWork = false,
+          ForFun = true
+        });
 
-          ctx.SaveChanges();
+        _ctx.SaveChanges();
 
-          Console.WriteLine("Wrote Sample Data to DB");
-
-        }
       }
     }
 

@@ -28,17 +28,20 @@ namespace MyCountries.Web
       Configuration = new Configuration()
           .AddJsonFile("config.json")
           .AddEnvironmentVariables();
+
     }
 
     // This method gets called by the runtime.
     public void ConfigureServices(IServiceCollection services)
     {
+      var connectionString = Configuration.Get("Data:DefaultConnection:ConnectionString");
+
       // Add EF services to the services container.
-      services.AddEntityFramework(Configuration)  
+      services.AddEntityFramework(Configuration)
           .AddSqlServer()
           .AddDbContext<MyCountriesContext>(options =>
           {
-            options.UseSqlServer(Configuration.Get("Data:DefaultConnection:ConnectionString"));
+            options.UseSqlServer(connectionString);
           });
 
       // Add Identity services to the services container.
@@ -49,10 +52,10 @@ namespace MyCountries.Web
       services.AddMvc()
         .Configure<MvcOptions>(options =>
         {
-          // See Strathweb's great discussion of formatters: http://www.strathweb.com/2014/11/formatters-asp-net-mvc-6/
+      // See Strathweb's great discussion of formatters: http://www.strathweb.com/2014/11/formatters-asp-net-mvc-6/
 
-          // Support Camelcasing in MVC API Controllers
-          var jsonOutputFormatter = new JsonOutputFormatter();
+      // Support Camelcasing in MVC API Controllers
+      var jsonOutputFormatter = new JsonOutputFormatter();
           jsonOutputFormatter.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
           jsonOutputFormatter.SerializerSettings.DefaultValueHandling = Newtonsoft.Json.DefaultValueHandling.Ignore;
 
@@ -65,7 +68,7 @@ namespace MyCountries.Web
 #if DEBUG
       services.AddScoped<IEmailer, ConsoleEmailer>();
 #else
-      services.AddScoped<IEmailer, Emailer>();
+  services.AddScoped<IEmailer, Emailer>();
 #endif
     }
 
@@ -103,10 +106,11 @@ namespace MyCountries.Web
               name: "default",
               template: "{controller}/{action}/{id?}",
               defaults: new { controller = "Home", action = "Index" });
-        });
+      });
 
       // Add Sample Data
-      SampleData.InitializeData(app.ApplicationServices);
+      var sampleData = ActivatorUtilities.CreateInstance<SampleData>(app.ApplicationServices);
+      sampleData.InitializeData();
 
     }
   }
