@@ -1,9 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.22310.1
+VisualStudioVersion = 14.0.22823.1
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "MyCountries.Web", "MyCountries.Web\MyCountries.Web.kproj", "{5D0CCC2B-B706-4105-92A4-20431FD418CA}"
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "MyCountries.Web", "MyCountries.Web\MyCountries.Web.xproj", "{5D0CCC2B-B706-4105-92A4-20431FD418CA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

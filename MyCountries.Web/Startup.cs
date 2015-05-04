@@ -15,6 +15,7 @@ using MyCountries.Web.Models;
 using Newtonsoft.Json.Serialization;
 using System;
 using MyCountries.Web.Services;
+using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace MyCountries.Web
 {
@@ -25,28 +26,35 @@ namespace MyCountries.Web
     public Startup(IHostingEnvironment env)
     {
       // Setup configuration sources.
-      Configuration = new Configuration()
+      var configuration = new Configuration()
           .AddJsonFile("config.json")
-          .AddEnvironmentVariables();
+          .AddJsonFile($"config.{env.EnvironmentName}.json", optional: true);
+
+      //if (env.IsEnvironment("Development"))
+      //{
+      //  // This reads the configuration keys from the secret store.
+      //  // For more details on using the user secret store see http://go.microsoft.com/fwlink/?LinkID=532709
+      //  configuration.AddUserSecrets();
+      //}
+
+      configuration.AddEnvironmentVariables();
+      Configuration = configuration;
 
     }
 
     // This method gets called by the runtime.
     public void ConfigureServices(IServiceCollection services)
     {
-      var connectionString = Configuration.Get("Data:DefaultConnection:ConnectionString");
-
       // Add EF services to the services container.
-      services.AddEntityFramework(Configuration)
+      services.AddEntityFramework()
           .AddSqlServer()
           .AddDbContext<MyCountriesContext>(options =>
-          {
-            options.UseSqlServer(connectionString);
-          });
+              options.UseSqlServer(Configuration["Data:DefaultConnection:ConnectionString"]));
 
       // Add Identity services to the services container.
-      services.AddIdentity<ApplicationUser, IdentityRole>(Configuration)
-          .AddEntityFrameworkStores<MyCountriesContext>();
+      services.AddIdentity<ApplicationUser, IdentityRole>()
+          .AddEntityFrameworkStores<MyCountriesContext>()
+          .AddDefaultTokenProviders();
 
       // Add MVC services to the services container.
       services.AddMvc()
@@ -59,7 +67,7 @@ namespace MyCountries.Web
           jsonOutputFormatter.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
           jsonOutputFormatter.SerializerSettings.DefaultValueHandling = Newtonsoft.Json.DefaultValueHandling.Ignore;
 
-          options.OutputFormatters.RemoveAll(formatter => formatter.Instance.GetType() == typeof(JsonOutputFormatter));
+          options.OutputFormatters.RemoveTypesOf<JsonOutputFormatter>();
           options.OutputFormatters.Insert(0, jsonOutputFormatter);
         }); ;
 
@@ -77,12 +85,12 @@ namespace MyCountries.Web
     {
       // Configure the HTTP request pipeline.
       // Add the console logger.
-      loggerfactory.AddConsole();
+      loggerfactory.AddConsole(minLevel: LogLevel.Warning);
 
       // Add the following to the request pipeline only in development environment.
       if (string.Equals(env.EnvironmentName, "Development", StringComparison.OrdinalIgnoreCase))
       {
-        app.UseBrowserLink();
+        //app.UseBrowserLink();
         app.UseErrorPage(ErrorPageOptions.ShowAll);
         app.UseDatabaseErrorPage(DatabaseErrorPageOptions.ShowAll);
       }

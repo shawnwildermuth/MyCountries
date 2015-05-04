@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using System.Security.Principal;
 using System.Net;
 using System;
+using Microsoft.AspNet.Authorization;
 
 namespace MyCountries.Web.Api
 {
@@ -20,7 +21,7 @@ namespace MyCountries.Web.Api
     [HttpGet("")]
     public async Task<ActionResult> Get()
     {
-      var username = User.Identity.GetUserName();
+      var username = User.Identity.Name;
       var results = await _repository.GetVisitsByUserNameAsync(username);
 
       return Json(results);
@@ -29,7 +30,7 @@ namespace MyCountries.Web.Api
     [HttpPost("")]
     public async Task<ActionResult> Post([FromBody] Visit newVisit)
     {
-      var username = User.Identity.GetUserName();
+      var username = User.Identity.Name;
 
       newVisit.UserName = username;
 
@@ -49,7 +50,7 @@ namespace MyCountries.Web.Api
     [HttpPut("{id}")]
     public async Task<ActionResult> Put(int id, [FromBody] Visit visit)
     {
-      var currentUserName = User.Identity.GetUserName();
+      var currentUserName = User.Identity.Name;
 
       // Valid User Updating
       if (visit.UserName != currentUserName)
@@ -69,7 +70,7 @@ namespace MyCountries.Web.Api
     [HttpDelete("{id}")]
     public async Task<ActionResult> Delete(int id)
     {
-      var currentUserName = User.Identity.GetUserName();
+      var currentUserName = User.Identity.Name;
 
       var visit = await _repository.GetVisitByIdAsync(id);
 

@@ -2,6 +2,7 @@
 using MyCountries.Web.Data;
 using System;
 using System.Threading.Tasks;
+using Microsoft.AspNet.Authorization;
 
 namespace MyCountries.Web.Controllers
 {

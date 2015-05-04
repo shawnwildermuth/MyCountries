@@ -33,7 +33,7 @@ namespace MyCountries.Web.Data
 
     public async Task<bool> AddVisitAsync(Visit newVisit)
     {
-      await _context.Visits.AddAsync(newVisit);
+      _context.Visits.Add(newVisit);
 
       return (await _context.SaveChangesAsync() > 0);
     }

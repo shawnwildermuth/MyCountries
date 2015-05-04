@@ -4,6 +4,7 @@ using System.Linq;
 using System.Security.Principal;
 using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Authorization;
 using Microsoft.AspNet.Mvc;
 using MyCountries.Web.Models;
 
@@ -150,7 +151,7 @@ namespace MyCountries.Web.Controllers
 
     private async Task<ApplicationUser> GetCurrentUserAsync()
     {
-      return await UserManager.FindByIdAsync(Context.User.Identity.GetUserId());
+      return await UserManager.FindByIdAsync(Context.User.Identity.Name);
     }
 
     public enum ManageMessageId
