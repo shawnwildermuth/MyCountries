@@ -5,8 +5,8 @@ using System.Threading.Tasks;
 using Microsoft.Data.Entity;
 using Microsoft.Data.Entity.Metadata;
 using Microsoft.Data.Entity.Metadata.Builders;
-using Microsoft.Data.Entity.Relational.Migrations.Infrastructure;
 using MyCountries.Web.Data;
+using Microsoft.Data.Entity.Migrations.Infrastructure;
 
 namespace ASPNET5New.Migrations
 {

@@ -40,7 +40,7 @@ namespace MyCountries.Web.Controllers
     {
       if (ModelState.IsValid)
       {
-        var signInStatus = await SignInManager.PasswordSignInAsync(model.UserName, model.Password, model.RememberMe, shouldLockout: false);
+        var signInStatus = await SignInManager.PasswordSignInAsync(model.UserName, model.Password, model.RememberMe, lockoutOnFailure: false);
         if (signInStatus.Succeeded)
         {
           return RedirectToLocal(returnUrl);
@@ -135,7 +135,7 @@ namespace MyCountries.Web.Controllers
     [ValidateAntiForgeryToken]
     public IActionResult LogOff()
     {
-      SignInManager.SignOut();
+      SignInManager.SignOutAsync();
       return RedirectToAction("Index", "Home");
     }
 

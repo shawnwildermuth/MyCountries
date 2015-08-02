@@ -1,19 +1,13 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.Data.Entity;
 using Microsoft.Data.Entity.Metadata;
-using Microsoft.Data.Entity.Metadata.Builders;
-using Microsoft.Data.Entity.Relational.Migrations;
-using Microsoft.Data.Entity.Relational.Migrations.Builders;
-using Microsoft.Data.Entity.Relational.Migrations.Infrastructure;
-using Microsoft.Data.Entity.Relational.Migrations.Operations;
 using MyCountries.Web.Data;
+using Microsoft.Data.Entity.Migrations;
+using Microsoft.Data.Entity.Migrations.Builders;
+using Microsoft.Data.Entity.Migrations.Infrastructure;
 
 namespace ASPNET5New.Migrations
 {
-  public partial class CreateIdentitySchema : Migration
+    public partial class CreateIdentitySchema : Migration
   {
     public override void Up(MigrationBuilder migration)
     {
@@ -154,15 +148,14 @@ namespace ASPNET5New.Migrations
 
     public override string ProductVersion
     {
-      get { return "7.0.0-beta4"; }
+      get { return "7.0.0-beta6"; }
     }
 
     public override IModel Target
     {
       get
       {
-        var builder = new BasicModelBuilder()
-            .Annotation("SqlServer:ValueGeneration", "Identity");
+        var builder = new BasicModelBuilder().Annotation("SqlServer:ValueGeneration", "Identity");
 
         builder.Entity("ASPNET5New.Models.ApplicationUser", b =>
         {
