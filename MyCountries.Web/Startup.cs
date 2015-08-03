@@ -6,7 +6,7 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Mvc;
 using Microsoft.AspNet.Routing;
 using Microsoft.Data.Entity;
-using Microsoft.Framework.ConfigurationModel;
+using Microsoft.Framework.Configuration;
 using Microsoft.Framework.DependencyInjection;
 using Microsoft.Framework.Logging;
 using Microsoft.Framework.Logging.Console;
@@ -26,7 +26,7 @@ namespace MyCountries.Web
     public Startup(IHostingEnvironment env)
     {
       // Setup configuration sources.
-      var configuration = new Configuration()
+      var configuration = new ConfigurationBuilder()
           .AddJsonFile("config.json")
           .AddJsonFile($"config.{env.EnvironmentName}.json", optional: true);
 
@@ -38,7 +38,7 @@ namespace MyCountries.Web
       //}
 
       configuration.AddEnvironmentVariables();
-      Configuration = configuration;
+      Configuration = (IConfiguration)configuration;
 
     }
 
@@ -67,7 +67,7 @@ namespace MyCountries.Web
           jsonOutputFormatter.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
           jsonOutputFormatter.SerializerSettings.DefaultValueHandling = Newtonsoft.Json.DefaultValueHandling.Ignore;
 
-          options.OutputFormatters.RemoveTypesOf<JsonOutputFormatter>();
+          //options.OutputFormatters.RemoveTypesOf<JsonOutputFormatter>();
           options.OutputFormatters.Insert(0, jsonOutputFormatter);
         }); ;
 
@@ -91,7 +91,7 @@ namespace MyCountries.Web
       if (string.Equals(env.EnvironmentName, "Development", StringComparison.OrdinalIgnoreCase))
       {
         //app.UseBrowserLink();
-        app.UseErrorPage(ErrorPageOptions.ShowAll);
+        app.UseErrorPage();
         app.UseDatabaseErrorPage(DatabaseErrorPageOptions.ShowAll);
       }
       else

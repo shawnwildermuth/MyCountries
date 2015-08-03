@@ -2,7 +2,7 @@
 using MyCountries.Web.Data;
 using System;
 using Microsoft.Framework.DependencyInjection;
-using Microsoft.Framework.ConfigurationModel;
+using Microsoft.Framework.Configuration;
 using Microsoft.AspNet.Identity;
 using MyCountries.Web.Models;
 using System.Threading.Tasks;

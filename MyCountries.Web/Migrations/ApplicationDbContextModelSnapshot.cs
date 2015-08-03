@@ -5,8 +5,8 @@ using System.Threading.Tasks;
 using Microsoft.Data.Entity;
 using Microsoft.Data.Entity.Metadata;
 using Microsoft.Data.Entity.Metadata.Builders;
-using Microsoft.Data.Entity.Relational.Migrations.Infrastructure;
 using MyCountries.Web.Data;
+using Microsoft.Data.Entity.Migrations.Infrastructure;
 
 namespace ASPNET5New.Migrations
 {
@@ -17,7 +17,7 @@ namespace ASPNET5New.Migrations
     {
       get
       {
-        var builder = new BasicModelBuilder()
+        var builder = new ModelBuilder(null)
             .Annotation("SqlServer:ValueGeneration", "Identity");
 
         builder.Entity("ASPNET5New.Models.ApplicationUser", b =>
@@ -32,7 +32,7 @@ namespace ASPNET5New.Migrations
           b.Property<bool>("EmailConfirmed")
               .Annotation("OriginalValueIndex", 3);
           b.Property<string>("Id")
-              .GenerateValueOnAdd()
+              .ValueGeneratedOnAdd()
               .Annotation("OriginalValueIndex", 4);
           b.Property<bool>("LockoutEnabled")
               .Annotation("OriginalValueIndex", 5);
@@ -64,7 +64,7 @@ namespace ASPNET5New.Migrations
               .ConcurrencyToken()
               .Annotation("OriginalValueIndex", 0);
           b.Property<string>("Id")
-              .GenerateValueOnAdd()
+              .ValueGeneratedOnAdd()
               .Annotation("OriginalValueIndex", 1);
           b.Property<string>("Name")
               .Annotation("OriginalValueIndex", 2);
@@ -81,7 +81,7 @@ namespace ASPNET5New.Migrations
           b.Property<string>("ClaimValue")
               .Annotation("OriginalValueIndex", 1);
           b.Property<int>("Id")
-              .GenerateValueOnAdd()
+              .ValueGeneratedOnAdd()
               .Annotation("OriginalValueIndex", 2)
               .Annotation("SqlServer:ValueGeneration", "Default");
           b.Property<string>("RoleId")
@@ -97,7 +97,7 @@ namespace ASPNET5New.Migrations
           b.Property<string>("ClaimValue")
               .Annotation("OriginalValueIndex", 1);
           b.Property<int>("Id")
-              .GenerateValueOnAdd()
+              .ValueGeneratedOnAdd()
               .Annotation("OriginalValueIndex", 2)
               .Annotation("SqlServer:ValueGeneration", "Default");
           b.Property<string>("UserId")
@@ -109,12 +109,12 @@ namespace ASPNET5New.Migrations
         builder.Entity("Microsoft.AspNet.Identity.EntityFramework.IdentityUserLogin`1[[System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]", b =>
         {
           b.Property<string>("LoginProvider")
-              .GenerateValueOnAdd()
+              .ValueGeneratedOnAdd()
               .Annotation("OriginalValueIndex", 0);
           b.Property<string>("ProviderDisplayName")
               .Annotation("OriginalValueIndex", 1);
           b.Property<string>("ProviderKey")
-              .GenerateValueOnAdd()
+              .ValueGeneratedOnAdd()
               .Annotation("OriginalValueIndex", 2);
           b.Property<string>("UserId")
               .Annotation("OriginalValueIndex", 3);
@@ -134,23 +134,23 @@ namespace ASPNET5New.Migrations
 
         builder.Entity("Microsoft.AspNet.Identity.EntityFramework.IdentityRoleClaim`1[[System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]", b =>
         {
-          b.ForeignKey("Microsoft.AspNet.Identity.EntityFramework.IdentityRole", "RoleId");
+          b.Reference("Microsoft.AspNet.Identity.EntityFramework.IdentityRole", "RoleId");
         });
 
         builder.Entity("Microsoft.AspNet.Identity.EntityFramework.IdentityUserClaim`1[[System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]", b =>
         {
-          b.ForeignKey("ASPNET5New.Models.ApplicationUser", "UserId");
+          b.Reference("ASPNET5New.Models.ApplicationUser", "UserId");
         });
 
         builder.Entity("Microsoft.AspNet.Identity.EntityFramework.IdentityUserLogin`1[[System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]", b =>
         {
-          b.ForeignKey("ASPNET5New.Models.ApplicationUser", "UserId");
+          b.Reference("ASPNET5New.Models.ApplicationUser", "UserId");
         });
 
         builder.Entity("Microsoft.AspNet.Identity.EntityFramework.IdentityUserRole`1[[System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]", b =>
         {
-          b.ForeignKey("Microsoft.AspNet.Identity.EntityFramework.IdentityRole", "RoleId");
-          b.ForeignKey("ASPNET5New.Models.ApplicationUser", "UserId");
+          b.Reference("Microsoft.AspNet.Identity.EntityFramework.IdentityRole", "RoleId");
+          b.Reference("ASPNET5New.Models.ApplicationUser", "UserId");
         });
 
         return builder.Model;

@@ -1,9 +1,14 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.22823.1
+VisualStudioVersion = 14.0.23107.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "MyCountries.Web", "MyCountries.Web\MyCountries.Web.xproj", "{5D0CCC2B-B706-4105-92A4-20431FD418CA}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{5B6BC0FF-81ED-43A0-8A17-FCFC7C5D6F44}"
+	ProjectSection(SolutionItems) = preProject
+		MyCountries.Web\global.json = MyCountries.Web\global.json
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
