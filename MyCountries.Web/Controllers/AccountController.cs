@@ -133,9 +133,9 @@ namespace MyCountries.Web.Controllers
     // POST: /Account/LogOff
     [HttpPost]
     [ValidateAntiForgeryToken]
-    public IActionResult LogOff()
+    public async Task<IActionResult> LogOffAsync()
     {
-      SignInManager.SignOutAsync();
+      await SignInManager.SignOutAsync();
       return RedirectToAction("Index", "Home");
     }
 
