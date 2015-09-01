@@ -13,8 +13,10 @@ technologies used include:
 * Bootstrap 3
 * Entity Framework 7
 * ASP.NET Identity
-* Visual Studio 2015 CTP5
+* Visual Studio 2015 RTM
 
 The expectation is to keep this up to date at least until ASP.NET 5 
 is released. Please enjoy.
+
+Current version: ASP.NET 5 Beta 6
 
