@@ -1,13 +1,9 @@
-﻿using Microsoft.Data.Entity.SqlServer;
-using MyCountries.Web.Data;
-using System;
-using Microsoft.Framework.DependencyInjection;
-using Microsoft.Framework.ConfigurationModel;
+﻿using System;
+using System.Linq;
+using System.Security.Claims;
+using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
 using MyCountries.Web.Models;
-using System.Threading.Tasks;
-using System.Security.Claims;
-using System.Linq;
 
 namespace MyCountries.Web.Data
 {

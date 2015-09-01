@@ -1,21 +1,17 @@
-﻿using Microsoft.AspNet.Builder;
-using Microsoft.AspNet.Diagnostics;
+﻿using System;
+using Microsoft.AspNet.Builder;
 using Microsoft.AspNet.Diagnostics.Entity;
 using Microsoft.AspNet.Hosting;
-using Microsoft.AspNet.Identity;
-using Microsoft.AspNet.Mvc;
-using Microsoft.AspNet.Routing;
+using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.Data.Entity;
-using Microsoft.Framework.ConfigurationModel;
+using Microsoft.Framework.Configuration;
 using Microsoft.Framework.DependencyInjection;
 using Microsoft.Framework.Logging;
-using Microsoft.Framework.Logging.Console;
+using Microsoft.Framework.Runtime;
 using MyCountries.Web.Data;
 using MyCountries.Web.Models;
-using Newtonsoft.Json.Serialization;
-using System;
 using MyCountries.Web.Services;
-using Microsoft.AspNet.Identity.EntityFramework;
+using Newtonsoft.Json.Serialization;
 
 namespace MyCountries.Web
 {
@@ -23,22 +19,14 @@ namespace MyCountries.Web
   {
     public IConfiguration Configuration { get; set; }
 
-    public Startup(IHostingEnvironment env)
+    public Startup(IHostingEnvironment env, IApplicationEnvironment appEnv)
     {
-      // Setup configuration sources.
-      var configuration = new Configuration()
-          .AddJsonFile("config.json")
-          .AddJsonFile($"config.{env.EnvironmentName}.json", optional: true);
+      var builder = new ConfigurationBuilder(appEnv.ApplicationBasePath)
+              .AddJsonFile("config.json")
+              .AddJsonFile($"config.{env.EnvironmentName}.json", optional: true);
 
-      //if (env.IsEnvironment("Development"))
-      //{
-      //  // This reads the configuration keys from the secret store.
-      //  // For more details on using the user secret store see http://go.microsoft.com/fwlink/?LinkID=532709
-      //  configuration.AddUserSecrets();
-      //}
-
-      configuration.AddEnvironmentVariables();
-      Configuration = configuration;
+      builder.AddEnvironmentVariables();
+      Configuration = builder.Build();
 
     }
 
@@ -58,18 +46,10 @@ namespace MyCountries.Web
 
       // Add MVC services to the services container.
       services.AddMvc()
-        .Configure<MvcOptions>(options =>
+        .ConfigureMvcJson(opts =>
         {
-      // See Strathweb's great discussion of formatters: http://www.strathweb.com/2014/11/formatters-asp-net-mvc-6/
-
-      // Support Camelcasing in MVC API Controllers
-      var jsonOutputFormatter = new JsonOutputFormatter();
-          jsonOutputFormatter.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
-          jsonOutputFormatter.SerializerSettings.DefaultValueHandling = Newtonsoft.Json.DefaultValueHandling.Ignore;
-
-          options.OutputFormatters.RemoveTypesOf<JsonOutputFormatter>();
-          options.OutputFormatters.Insert(0, jsonOutputFormatter);
-        }); ;
+          opts.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
+        });
 
       // Add other services
       services.AddScoped<IMyCountriesRepository, MyCountriesRepository>();
@@ -91,7 +71,7 @@ namespace MyCountries.Web
       if (string.Equals(env.EnvironmentName, "Development", StringComparison.OrdinalIgnoreCase))
       {
         //app.UseBrowserLink();
-        app.UseErrorPage(ErrorPageOptions.ShowAll);
+        app.UseErrorPage();
         app.UseDatabaseErrorPage(DatabaseErrorPageOptions.ShowAll);
       }
       else

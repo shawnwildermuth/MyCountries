@@ -6,7 +6,6 @@ var concat = require('gulp-concat');
 var uglify = require('gulp-uglify');
 var del = require('del');
 var ngAnnotate = require('gulp-ng-annotate');
-var bower = require("gulp-bower");
  
 gulp.task('default', function () {
 
@@ -18,7 +17,3 @@ gulp.task('default', function () {
 
 });
 
-gulp.task("bower", function () {
-  return bower()
-    .pipe(gulp.dest("wwwroot/lib/"));
-});
