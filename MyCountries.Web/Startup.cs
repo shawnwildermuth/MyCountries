@@ -4,10 +4,10 @@ using Microsoft.AspNet.Diagnostics.Entity;
 using Microsoft.AspNet.Hosting;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.Data.Entity;
+using Microsoft.Dnx.Runtime;
 using Microsoft.Framework.Configuration;
 using Microsoft.Framework.DependencyInjection;
 using Microsoft.Framework.Logging;
-using Microsoft.Framework.Runtime;
 using MyCountries.Web.Data;
 using MyCountries.Web.Models;
 using MyCountries.Web.Services;
@@ -17,7 +17,7 @@ namespace MyCountries.Web
 {
   public class Startup
   {
-    public IConfiguration Configuration { get; set; }
+    public IConfigurationRoot Configuration { get; set; }
 
     public Startup(IHostingEnvironment env, IApplicationEnvironment appEnv)
     {
@@ -46,7 +46,7 @@ namespace MyCountries.Web
 
       // Add MVC services to the services container.
       services.AddMvc()
-        .ConfigureMvcJson(opts =>
+        .AddJsonOptions(opts =>
         {
           opts.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
         });
