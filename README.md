@@ -18,5 +18,5 @@ technologies used include:
 The expectation is to keep this up to date at least until ASP.NET 5 
 is released. Please enjoy.
 
-Current version: ASP.NET 5 Beta 6
+Current version: ASP.NET 5 Beta 7
 
