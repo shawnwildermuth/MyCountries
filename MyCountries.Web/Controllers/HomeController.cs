@@ -66,8 +66,10 @@ namespace MyCountries.Web.Controllers
     }
 
 
-    public IActionResult Error()
+    public IActionResult Error(int id)
     {
+      ViewBag.ErrorCode = id;
+
       return View("~/Views/Shared/Error.cshtml");
     }
   }

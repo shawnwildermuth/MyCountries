@@ -1,5 +1,6 @@
 ﻿using System;
 using Microsoft.AspNet.Builder;
+using Microsoft.AspNet.Diagnostics;
 using Microsoft.AspNet.Diagnostics.Entity;
 using Microsoft.AspNet.Hosting;
 using Microsoft.AspNet.Identity.EntityFramework;
@@ -66,6 +67,8 @@ namespace MyCountries.Web
       // Configure the HTTP request pipeline.
       // Add the console logger.
       loggerfactory.AddConsole(minLevel: LogLevel.Warning);
+
+      app.UseStatusCodePagesWithReExecute("/Home/Error/{0}");
 
       // Add the following to the request pipeline only in development environment.
       if (string.Equals(env.EnvironmentName, "Development", StringComparison.OrdinalIgnoreCase))
