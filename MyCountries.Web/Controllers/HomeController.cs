@@ -16,7 +16,7 @@ namespace MyCountries.Web.Controllers
       _emailer = emailer;
     }
 
-    public IActionResult Index()
+    public ActionResult Index()
     {
       ViewBag.Message = "An example of ASP.NET 5";
 

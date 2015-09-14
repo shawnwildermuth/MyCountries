@@ -21,28 +21,24 @@
         <form role="form" method="post">
           @if (ViewBag.Result != null)
           {
-            <div class="text-primary">@ViewBag.Result</div>
+          <div class="text-primary">@ViewBag.Result</div>
           }
-          @Html.ValidationSummary(true)
+          <div asp-validation-summary="ValidationSummary.ModelOnly"></div>
           <div class="form-group">
-            <!-- form input -->
-            @Html.TextBoxFor(m => m.Name, new { @class = "form-control", Placeholder = "Name" })
-            @Html.ValidationMessageFor(m => m.Name, null, new { @class = "text-danger" })
+            <input asp-for="Name" class="form-control" placeholder="Name" />
+            <span asp-validation-for="Name" class="text-danger"></span>
           </div>
           <div class="form-group">
-            <!-- form input -->
-            @Html.TextBoxFor(m => m.Email, new { @class = "form-control", Placeholder = "Email" })
-            @Html.ValidationMessageFor(m => m.Email, null, new { @class = "text-danger" })
+            <input asp-for="Email" class="form-control" placeholder="Email" />
+            <span asp-validation-for="Email" class="text-danger"></span>
           </div>
           <div class="form-group">
-            <!-- form textarea -->
-            @Html.TextAreaFor(m => m.Comments, new { @class = "form-control", Placeholder = "Comments", Rows = 4 })
-            @Html.ValidationMessageFor(m => m.Comments, null, new { @class = "text-danger" })
+            <textarea asp-for="Comments" class="form-control" cols="40" rows="4" placeholder="Comments"></textarea>
+            <span asp-validation-for="Comments" class="text-danger"></span>
           </div>
           <div class="form-group">
             <!-- form Submit and reset button -->
-            <button type="submit" class="btn btn-info">Submit</button>&nbsp;
-            <button type="reset" class="btn btn-default">Reset</button>
+            <input type="submit" class="btn btn-info" value="Submit" />
           </div>
         </form>
       </div>

@@ -1,5 +1,5 @@
 ﻿<li>
-  <a href="@Url.Action("Index", "Home")" class="@(Url.Action("Index", "Home") == Url.Action() ? "br-red" : "br-blue")">
+  <a  asp-controller="Home" asp-action="Index" class="@(Url.Action("Index", "Home") == Url.Action() ? "br-red" : "br-blue")">
     <!-- Link Icon -->
     <i class="fa fa-home link-icon"></i>
     <!-- Link Title -->
@@ -7,7 +7,7 @@
   </a>
 </li>
 <li>
-  <a href="@Url.Action("Contact", "Home")" class="@(Url.Action("Contact", "Home") == Url.Action() ? "br-red" : "br-blue")">
+  <a asp-controller="Home" asp-action="Contact" class="@(Url.Action("Contact", "Home") == Url.Action() ? "br-red" : "br-blue")">
     <!-- Link Icon -->
     <i class="fa fa-envelope-o link-icon"></i>
     <!-- Link Title -->
@@ -15,7 +15,7 @@
   </a>
 </li>
 <li>
-  <a href="@Url.Action("About", "Home")" class="@(Url.Action("About", "Home") == Url.Action() ? "br-red" : "br-blue")">
+  <a asp-controller="Home" asp-action="About" class="@(Url.Action("About", "Home") == Url.Action() ? "br-red" : "br-blue")">
     <!-- Link Icon -->
     <i class="fa fa-search link-icon"></i>
     <!-- Link Title -->
