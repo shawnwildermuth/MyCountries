@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 using Microsoft.AspNet.Builder;
 using Microsoft.AspNet.Diagnostics;
 using Microsoft.AspNet.Diagnostics.Entity;
@@ -53,6 +54,7 @@ namespace MyCountries.Web
         });
 
       // Add other services
+      services.AddTransient<SampleDataInitializer>();
       services.AddScoped<IMyCountriesRepository, MyCountriesRepository>();
 #if DEBUG
       services.AddScoped<IEmailer, ConsoleEmailer>();
@@ -62,7 +64,10 @@ namespace MyCountries.Web
     }
 
     // Configure is called after ConfigureServices is called.
-    public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerfactory)
+    public async void Configure(IApplicationBuilder app, 
+                                IHostingEnvironment env, 
+                                ILoggerFactory loggerfactory, 
+                                SampleDataInitializer sampleData)
     {
       // Configure the HTTP request pipeline.
       // Add the console logger.
@@ -100,8 +105,7 @@ namespace MyCountries.Web
       });
 
       // Add Sample Data
-      var sampleData = ActivatorUtilities.CreateInstance<SampleData>(app.ApplicationServices);
-      sampleData.InitializeData();
+      await sampleData.InitializeDataAsync();
 
     }
   }

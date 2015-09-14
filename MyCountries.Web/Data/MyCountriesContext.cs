@@ -9,6 +9,7 @@ namespace MyCountries.Web.Data
   {
     public MyCountriesContext()
     {
+      Database.EnsureCreated();
     }
 
     public DbSet<Visit> Visits { get; set; }
@@ -19,6 +20,5 @@ namespace MyCountries.Web.Data
 
       base.OnModelCreating(builder);
     }
-
   }
 }

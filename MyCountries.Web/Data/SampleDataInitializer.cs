@@ -7,27 +7,24 @@ using MyCountries.Web.Models;
 
 namespace MyCountries.Web.Data
 {
-  public class SampleData
+  public class SampleDataInitializer
   {
     private MyCountriesContext _ctx;
     private UserManager<ApplicationUser> _userManager;
 
-    public SampleData(MyCountriesContext ctx, UserManager<ApplicationUser> userManager)
+    public SampleDataInitializer(MyCountriesContext ctx, UserManager<ApplicationUser> userManager)
     {
       _ctx = ctx;
       _userManager = userManager;
     }
 
-    public void InitializeData()
+    public async Task InitializeDataAsync()
     {
-      if (_ctx.Database.EnsureCreated())
-      {
-        CreateUsers().Wait();
-        CreateVisits();
-      }
+      await CreateUsersAsync();
+      CreateVisits();
     }
 
-    private async Task CreateUsers()
+    private async Task CreateUsersAsync()
     {
       var user = await _userManager.FindByEmailAsync("shawnwildermuth");
       if (user == null)
@@ -42,7 +39,7 @@ namespace MyCountries.Web.Data
 
     private void CreateVisits()
     {
-      if (_ctx.Visits.Count() == 0)
+      if (!_ctx.Visits.Any())
       {
         _ctx.Visits.Add(new Visit()
         {
