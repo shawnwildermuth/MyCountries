@@ -23,7 +23,8 @@ namespace MyCountries.Web
 
     public Startup(IHostingEnvironment env, IApplicationEnvironment appEnv)
     {
-      var builder = new ConfigurationBuilder(appEnv.ApplicationBasePath)
+      var builder = new ConfigurationBuilder()
+              .SetBasePath(appEnv.ApplicationBasePath)
               .AddJsonFile("config.json")
               .AddJsonFile($"config.{env.EnvironmentName}.json", optional: true);
 
@@ -56,18 +57,16 @@ namespace MyCountries.Web
       // Add other services
       services.AddTransient<SampleDataInitializer>();
       services.AddScoped<IMyCountriesRepository, MyCountriesRepository>();
-#if DEBUG
-      services.AddScoped<IEmailer, ConsoleEmailer>();
-#else
-  services.AddScoped<IEmailer, Emailer>();
-#endif
+
+      services.AddTransient<IEmailSender, AuthMessageSender>();
+      services.AddTransient<ISmsSender, AuthMessageSender>();
     }
 
     // Configure is called after ConfigureServices is called.
-    public async void Configure(IApplicationBuilder app, 
-                                IHostingEnvironment env, 
-                                ILoggerFactory loggerfactory, 
-                                SampleDataInitializer sampleData)
+    public void Configure(IApplicationBuilder app, 
+                          IHostingEnvironment env, 
+                          ILoggerFactory loggerfactory, 
+                          SampleDataInitializer sampleData)
     {
       // Configure the HTTP request pipeline.
       // Add the console logger.
@@ -79,14 +78,14 @@ namespace MyCountries.Web
       if (string.Equals(env.EnvironmentName, "Development", StringComparison.OrdinalIgnoreCase))
       {
         //app.UseBrowserLink();
-        app.UseErrorPage();
+        app.UseDeveloperExceptionPage();
         app.UseDatabaseErrorPage(DatabaseErrorPageOptions.ShowAll);
       }
       else
       {
         // Add Error handling middleware which catches all application specific errors and
         // send the request to the following path or controller action.
-        app.UseErrorHandler("/Home/Error");
+        app.UseExceptionHandler("/Home/Error");
       }
 
       // Add static files to the request pipeline.
@@ -105,7 +104,7 @@ namespace MyCountries.Web
       });
 
       // Add Sample Data
-      await sampleData.InitializeDataAsync();
+      sampleData.InitializeData();
 
     }
   }

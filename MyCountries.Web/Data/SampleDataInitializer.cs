@@ -10,31 +10,15 @@ namespace MyCountries.Web.Data
   public class SampleDataInitializer
   {
     private MyCountriesContext _ctx;
-    private UserManager<ApplicationUser> _userManager;
 
-    public SampleDataInitializer(MyCountriesContext ctx, UserManager<ApplicationUser> userManager)
+    public SampleDataInitializer(MyCountriesContext ctx)
     {
       _ctx = ctx;
-      _userManager = userManager;
     }
 
-    public async Task InitializeDataAsync()
+    public void InitializeData()
     {
-      await CreateUsersAsync();
       CreateVisits();
-    }
-
-    private async Task CreateUsersAsync()
-    {
-      var user = await _userManager.FindByEmailAsync("shawnwildermuth");
-      if (user == null)
-      {
-        user = new ApplicationUser { UserName = "shawnwildermuth", Email = "shawn@wildermuth.com" };
-        await _userManager.CreateAsync(user, "P@ssw0rd!");
-
-        await _userManager.AddClaimAsync(user, new Claim("ManageStore", "Allowed"));
-      }
-
     }
 
     private void CreateVisits()
@@ -44,7 +28,7 @@ namespace MyCountries.Web.Data
         _ctx.Visits.Add(new Visit()
         {
           Id = 0,
-          UserName = "shawnwildermuth",
+          UserName = "shawn@wildermuth.com",
           Country = "France",
           City = "Paris",
           VisitDate = new DateTime(2014, 6, 4),
@@ -57,7 +41,7 @@ namespace MyCountries.Web.Data
         _ctx.Visits.Add(new Visit()
         {
           Id = 0,
-          UserName = "shawnwildermuth",
+          UserName = "shawn@wildermuth.com",
           Country = "United Kingdom",
           City = "London",
           VisitDate = new DateTime(2014, 7, 2),
@@ -70,7 +54,7 @@ namespace MyCountries.Web.Data
         _ctx.Visits.Add(new Visit()
         {
           Id = 0,
-          UserName = "shawnwildermuth",
+          UserName = "shawn@wildermuth.com",
           Country = "France",
           City = "Paris",
           VisitDate = new DateTime(2014, 6, 4),
@@ -83,7 +67,7 @@ namespace MyCountries.Web.Data
         _ctx.Visits.Add(new Visit()
         {
           Id = 0,
-          UserName = "shawnwildermuth",
+          UserName = "shawn@wildermuth.com",
           Country = "France",
           City = "Paris",
           VisitDate = new DateTime(2014, 6, 4),

@@ -1,13 +1,15 @@
 {
   "profiles": {
-    "web": {
-      "commandName": "web",
-      "launchBrowser": true,
-      "launchUrl": "http://localhost:8080"
-    },
-    "IISExpress": {
+    "IIS Express": {
       "commandName": "IISExpress",
       "launchBrowser": true,
+      "environmentVariables": {
+        "ASPNET_ENV": "Development"
+      },
+      "sdkVersion": "dnx-clr-win-x64.1.0.0-beta8"
+    },
+    "web": {
+      "commandName": "web",
       "environmentVariables": {
         "ASPNET_ENV": "Development"
       }

@@ -16,7 +16,7 @@ namespace MyCountries.Web.Data
 
     protected override void OnModelCreating(ModelBuilder builder)
     {
-      builder.Entity<Visit>().Key(v => v.Id);
+      builder.Entity<Visit>().HasKey(v => v.Id);
 
       base.OnModelCreating(builder);
     }

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using Microsoft.AspNet.Mvc;
 using MyCountries.Web.Data;
 using MyCountries.Web.Models;
@@ -10,8 +11,8 @@ namespace MyCountries.Web.Controllers
 {
   public class HomeController : Controller
   {
-    private IEmailer _emailer;
-    public HomeController(IEmailer emailer)
+    private IEmailSender _emailer;
+    public HomeController(IEmailSender emailer)
     {
       _emailer = emailer;
     }
@@ -38,7 +39,7 @@ namespace MyCountries.Web.Controllers
     }
 
     [HttpPost]
-    public IActionResult Contact(ContactModel model)
+    public async Task<IActionResult> Contact(ContactModel model)
     {
       ViewBag.Message = "Let us know what you think!";
 
@@ -46,12 +47,12 @@ namespace MyCountries.Web.Controllers
       {
         try
         {
-          _emailer.SendMail("shawn@wildermuth.com", "shawn@wildermuth.com", "Message From MyCountries.io",
-            string.Format(@"From: {1} ({2}){0}Comment: {3}",
-              Environment.NewLine,
-              model.Name,
-              model.Email,
-              model.Comments));
+          await _emailer.SendEmailAsync("shawn@wildermuth.com", "Message From MyCountries.io",
+              string.Format(@"From: {1} ({2}){0}Comment: {3}",
+                Environment.NewLine,
+                model.Name,
+                model.Email,
+                model.Comments));
 
           ModelState.Clear();
           ViewBag.Result = "Message Sent";

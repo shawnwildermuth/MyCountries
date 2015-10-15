@@ -15,7 +15,7 @@
   </PropertyGroup>
   <PropertyGroup>
     <SchemaVersion>2.0</SchemaVersion>
-    <DevelopmentServerPort>8000</DevelopmentServerPort>
+    <DevelopmentServerPort>22223</DevelopmentServerPort>
     <CommandLineArguments />
     <DebugTarget>
     </DebugTarget>
